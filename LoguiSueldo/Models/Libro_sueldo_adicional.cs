@@ -23,7 +23,7 @@ namespace LoguiSueldo.Models
         public int DiasTrabajados { get; set; }
         public float HorasTrabajadas { get; set; }
         public int CantidadAdherentes { get; set; }
-        //public int CodigoObraSocial { get; set; }
+        public int CodigoObraSocial { get; set; }
         public int CodigoSiniestro1 { get; set;}
         public int DiaSiniestro1 { get; set; }
         public int CodigoSiniestro2 { get; set; }
