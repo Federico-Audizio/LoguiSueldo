@@ -10,7 +10,7 @@ namespace LoguiSueldo.Models
 	public class Convenio
 	{
         [Required, Key]
-        public int IdConvenio { get; set; }
+        public int ConvenioID { get; set; }
 
         public string Descripcion { get; set; }
 

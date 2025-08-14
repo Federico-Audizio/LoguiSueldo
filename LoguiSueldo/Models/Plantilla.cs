@@ -5,8 +5,8 @@ namespace LoguiSueldo.Models
     public class Plantilla
     {
         [Key]
-        public int Id_plantilla { get; set; }
+        public int PlantillaID { get; set; }
         public float Descripcion { get; set; }
-        public int Id_convenio { get; set; }
+        public int ConvenioID { get; set; }
     }
 }
