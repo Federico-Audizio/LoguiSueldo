@@ -1,0 +1,73 @@
+﻿@model LoguiContable.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Registrar";
+    Layout = "~/Views/Shared/_LayoutMenuSimple.cshtml";
+}
+
+<a id="atras" class="btn-success btnPosicion1" href="~/Personas/Index" title="Volver">
+    <i class="fa fa-arrow-left"></i>
+</a>     
+
+<div class="stepwizard" style="margin-top:30px; margin-bottom:10px">
+    <div class="stepwizard-row setup-panel">
+        <div class="stepwizard-step">
+            <div class="btn btn-circle">1</div>
+            <p style="font-weight:bold">Registrar Cuenta</p>
+        </div>
+        <div class="stepwizard-step">
+            <div class="btn btn-circle" disabled="disabled">2</div>
+            <p style="font-weight:bold">Elegir Plan</p>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <p class="subtitulo-panel-heading"><span>REGISTRO DE USUARIO</span></p>
+            </div>
+            <div class="panel-body">             
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        @if (ViewBag.Error != null)
+                        {
+                            <p style="margin-bottom:-5px" class="text-danger">@ViewBag.Error</p>
+                        }
+                    </div>
+                    <div class="col-md-4 espacioCol">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        <p class="aclaracion-input">*Mínimo de 6 caracteres.</p>
+                    </div>
+                    <div class="col-md-4 espacioCol">
+                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        <p class="aclaracion-input">*Repetir contraseña.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" title="Crear Usuario" id="btn-submit" onclick="OcultarSubmit();" class="btn-success btnPosicion2"> <i class="glyphicon glyphicon-ok"></i> </button>
+            <div title="Espere..." id="btn-espere" class="btn-success btnPosicion2 ocultar"> <i style="padding-top:3px" class="fa fa-hourglass"></i> </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

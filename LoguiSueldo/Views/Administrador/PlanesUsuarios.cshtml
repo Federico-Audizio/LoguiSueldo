@@ -1,0 +1,134 @@
+@model IEnumerable<LoguiContable.Models.Administracion.ListadoClientesLogui>
+
+@{
+    ViewBag.Title = "Planes de los Usuarios";
+}
+
+<div>
+    <section class="content-header">
+        <h1>
+            ADMINISTRADOR
+            <small>Listado de Usuarios</small>
+        </h1>
+        <p id="noimprimirbuscar" class="text-right" style="font-size:13px; margin-top:-5px; margin-bottom:-10px">
+            Consulta realizada en: @ViewBag.Espera milisegundos. Fecha Servidor: @ViewBag.HoraServidor Hs. Fecha Sistema: @ViewBag.HoraSistema Hs.
+        </p>
+    </section>
+    <section class="content">
+
+        <div class="box margenInfIndex">
+            <table>
+                <thead>
+                    <tr>
+                        <td>
+                            <p class="buscador"><input id="buscar" type="text" class="form-control form-controlCorto" placeholder="Escriba aquí para acotar la búsqueda" /></p>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+            <table id="tabla" class="table-condensed table-hover paddingEncabezadosTablas">
+                <thead>
+                    <tr class="barratitulosindex">
+                        <th >Razón Social</th>
+                        <th class="descarto">Email</th>
+                        <th class="text-center descarto">Empresas</th>
+                        <th class="text-center descarto">Alta</th>
+                        <th class="text-center descarto">Baja</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    @foreach (var c in Model.OrderBy(p => p.RazonSocial))
+                    {
+
+                        if (c.Activo == true)
+                        {
+                            <tr class="altoBotonesTabla">
+                                <td >
+                                    <a class="detalletituloindex text-bold" href="~/Administrador/CambiarEstadoCliente/@c.ClienteID">
+                                        @c.RazonSocial
+                                    </a>
+                                </td>
+                                <td class="descarto">
+                                    @c.Email
+                                </td>
+
+
+                                <td class="text-center descarto">
+                                    @c.CantidadEmpresasCreadas
+                                </td>
+
+                                <td class="text-center descarto">
+                                    @c.FechaAlta.ToString("dd/MM/yyyy")
+                                </td>
+
+                                <td class="text-center descarto">
+                                    -
+                                </td>
+                             
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="altoBotonesTabla">
+                                <td class="fondoRojoTabla">
+                                    <a class="detalletituloindex text-bold" href="~/Administrador/CambiarEstadoCliente/@c.ClienteID">
+                                        @c.RazonSocial
+                                    </a>
+                                </td>
+                                <td class="descarto fondoRojoTabla">
+                                    @c.Email
+                                </td>
+
+                                <td class="text-center descarto fondoRojoTabla">
+                                    @c.CantidadEmpresasCreadas
+                                </td>
+
+                                <td class="text-center descarto fondoRojoTabla">
+                                    @c.FechaAlta.ToString("dd/MM/yyyy")
+                                </td>
+
+                                <td class="text-center descarto fondoRojoTabla">
+                                    @c.FechaBaja.ToString("dd/MM/yyyy")
+                                </td>
+
+                                <td class="text-right fondoRojoTabla">
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script>
+        document.querySelector("#buscar").onkeyup = function () {
+            $TableFilter("#tabla", this.value);
+        }
+
+        $TableFilter = function (id, value) {
+            var rows = document.querySelectorAll(id + ' tbody tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                var showRow = false;
+
+                var row = rows[i];
+                row.style.display = 'none';
+
+                for (var x = 0; x < row.childElementCount; x++) {
+                    if (row.children[x].textContent.toLowerCase().indexOf(value.toLowerCase().trim()) > -1) {
+                        showRow = true;
+                        break;
+                    }
+                }
+
+                if (showRow) {
+                    row.style.display = null;
+                }
+            }
+        }
+    </script>
+}

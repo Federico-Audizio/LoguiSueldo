@@ -1,0 +1,299 @@
+﻿@page {
+    size: A4;
+    margin: 0mm 0mm 0mm 0mm;
+    background-color: white;
+}
+
+.principal {
+    width: 200mm;
+    height: 140mm;
+    margin-left:0mm;
+    margin-top: -3mm;
+    margin-bottom: -15px;
+}
+
+.originalDuplicado {
+    color: black;
+    background-color: lightgray !important;
+    border: 0.5px solid black;
+    font-weight: bold;
+    width: 190mm;
+    height: 5.5mm;
+    margin-top: 4mm;
+    -webkit-print-color-adjust: exact;
+}
+
+.datosEmpresa {
+    font-size: 8pt;
+    position: relative;
+    z-index: 2;
+    color: black;
+    background-color: white;
+    border: 0.5px solid black;
+    font-weight: normal;
+    float: left;
+    width: 95.5mm;
+    height: 35mm;
+    margin-top: -0.3mm;
+    text-align: left;
+    padding-left: 2mm;
+    border-right: none;
+}
+
+.cuadradoLetra {
+    position: absolute;
+    z-index: 4;
+    position: center;
+    font-size: 8pt;
+    color: black;
+    border: 0.5px solid black;
+    font-weight: bold;
+    float: left;
+    text-align: center;
+    width: 15mm;
+    height: 13mm;
+    margin-left: 88mm;
+    margin-top: -0.2mm;
+}
+
+.lineaDivisoriaCuadroLetra {
+    position: absolute;
+    z-index: 5;
+    position: center;
+    float: left;
+    margin-top: 13mm;
+    margin-left: 95mm;
+    height: 21.5mm;
+    width: 0mm;
+    border: 0.5px solid black;
+}
+
+.datosFactura {
+    position: relative;
+    z-index: 3;
+    font-size: 9pt;
+    color: black;
+    background-color: white;
+    border: 0.5px solid black;
+    font-weight: bold;
+    float: left;
+    text-align: left;
+    padding-left: 11mm;
+    width: 95mm;
+    height: 35mm;
+    margin-top: -0.3mm;
+    margin-left: -0.5mm;
+    border-left: none;
+}
+
+.datosFechaServicios {
+    font-size: 9pt;
+    color: black;
+    background-color: white;
+    border: 0.5px solid black;
+    font-weight: normal;
+    float: left;
+    width: 190mm;
+    height: 6mm;
+    margin-top: -0.3mm;
+}
+
+.datosClientes {
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    border: 0.5px solid black;
+    font-weight: normal;
+    float: left;
+    width: 190mm;
+    height: 17mm;
+    margin-top: -0.3mm;
+    padding-left: 2mm;
+}
+
+.titulosDetalle {
+    font-size: 8pt;
+    color: black;
+    background-color: lightgray !important;
+    border: 0.5px solid black;
+    font-weight: bold;
+    float: left;
+    width: 190mm;
+    height: 5.5mm;
+    margin-top: -0.3mm;
+}
+
+.cuerpoDetalle {
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    border: 0.5px solid black;
+    font-weight: normal;
+    float: left;
+    width: 190mm;
+    height: 29mm;
+    margin-top: -0.3mm;
+    margin-bottom: -0.3mm;
+}
+
+.lineaDivisoria {
+    color: black;
+    background-color: lightgray !important;
+    border: 0.5px solid black;
+    float: left;
+    width: 190mm;
+    height: 2mm;
+    -webkit-print-color-adjust: exact;
+}
+
+.titulosTotalesGenerales {
+    font-size: 9pt;
+    color: black;
+    border: 0.5px solid black;
+    background-color: lightgray !important;
+    font-weight: bold;
+    float: left;
+    width: 190mm;
+    height: 5.5mm;
+    margin-top: -0.3mm;
+    -webkit-print-color-adjust: exact;
+}
+
+.totalesGenerales {
+    font-size: 9pt;
+    color: black;
+    border: 0.5px solid black;
+    background-color: white;
+    float: left;
+    width: 190mm;
+    height: 6.5mm;
+    margin-top: -0.3mm;
+}
+
+.lineaDivisoria2 {
+    color: black;
+    background-color: lightgray !important;
+    border: 0.5px solid black;
+    float: left;
+    width: 190mm;
+    height: 2.5mm;
+    margin-top: -0.3mm;
+    -webkit-print-color-adjust: exact;
+}
+
+.cae {
+    font-size: 9pt;
+    color: black;
+    border: 0.5px solid black;
+    background-color: white;
+    float: left;
+    width: 190mm;
+    height: 17mm;
+    margin-top: -0.3mm;
+}
+
+.caeQR {
+    font-size: 9pt;
+    color: black;
+    border: 0.5px solid black;
+    background-color: white;
+    float: left;
+    width: 162mm;
+    margin-left: 28mm;
+    height: 17mm;
+    margin-top: -28.0mm;
+}
+
+.CuadroCodigoQR {
+  
+    border: 0.5px solid black;
+    background-color: white;
+    float: left;
+    width: 28.3mm;
+  
+    height: 28mm;
+    margin-top: -0.3mm;
+}
+
+.observaciones {
+    font-size: 9pt;
+    color: black;
+    border: 0.5px solid black;
+    background-color: white;
+    float: left;
+    width: 190mm;
+    height: 11mm;
+    margin-top: -0.3mm;
+    -webkit-print-color-adjust: exact;
+}
+.observacionesQR {
+    font-size: 9pt;
+    color: black;
+    border: 0.5px solid black;
+    background-color: white;
+    float: left;
+    width: 162mm;
+    height: 11mm;
+    margin-top: -11.2mm;
+    margin-left:28mm;
+    -webkit-print-color-adjust: exact;
+}
+.comproAut {
+    height: 8mm;
+    width:40mm;
+}
+.imagenAfip {
+    height: 6.5mm;
+    width:30mm;
+}
+.imagenEmpresa {
+    /*height:100%;
+    width:45mm;
+    float:left;
+    text-align:center;*/
+    height: 55pt;
+}
+.datosPrincipalesEmpresa {
+    height:100%;
+    /*width:85mm;
+    margin-left:45mm;*/
+}
+
+
+@media print {
+    @page {
+        size: A4;
+        margin: 5mm 5mm 5mm 5mm;
+        background-color: white;
+    }
+    .no-imprimirFactura {
+        display: none;
+    }
+    .principal {
+        margin-left:-10mm;
+        margin-top:-5mm;
+    }
+}
+
+
+/* ==========================================================================
+Cambiamos las propiedades de las Tablas SOLO para la IMPRESION.
+========================================================================== */
+table {
+    border: none;
+    width: 100%;
+}
+table caption {
+    font-size: 0em;
+    margin: 0em 0 0em;
+}
+table tr {
+    background: none;
+    border: none;
+    padding: 0.5mm;
+}
+table th,
+table td {
+    padding: 0.5mm;
+    border: none;
+}

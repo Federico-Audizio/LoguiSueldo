@@ -1,0 +1,327 @@
+@model LoguiContable.Models.Administracion.ClientesLogui
+
+@{
+    ViewBag.Title = "Cambiar Estado Cliente";
+}
+
+@* VENTANA EMERGENTE CAMBIAR ESTADO EMPRESA. *@
+<div id="ModalEstadoEmpresa" class="modal fade ModalEstadoEmpresa" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Estado Empresa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal form-articulo-factura" role="form" style="margin-top:0px">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <input type="hidden" id="PlanEmpresaID" value="0" />
+                            <div class="col-md-3">
+                                @Html.Label("Cliente:", htmlAttributes: new { @class = "control-label" })
+                                @Html.Editor("ClienteNombre", new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.Label("Usuario:", htmlAttributes: new { @class = "control-label" })
+                                @Html.Editor("EmailUsuario", new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.Label("Empresa:", htmlAttributes: new { @class = "control-label" })
+                                @Html.Editor("EmpresaNombre", new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.Label("Estado:", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("EstadoEmpresa", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <div class="text-center">
+                    <button type="button" onclick="CancelarEstadoEmpresa();" id="btn-cancelarEstadoEmpresa" class="btn-ovalo" data-dismiss="modal">Cancelar</button>
+                    <button type="button" onclick="GuardarEstadoEmpresa();" id="btn-guardarEstadoEmpresa" class="btn-ovalo">Guardar</button>
+                    <button type="button" id="btn-espereEstadoEmpresa" class="btn-ovalo ocultar">Espere...</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <section class="content-header">
+        <h1>
+            ADMINISTRADOR
+            <small>Configuración de Cuenta</small>
+        </h1>
+    </section>
+    <section class="content">
+    
+            <a id="atras" class="btnPosicion1" href="~/Administrador/PlanesUsuarios" title="Volver">
+                <i class="fa fa-arrow-left"></i>
+            </a>
+
+        <div class="box margenInfIndex">
+            <div class="form-horizontal">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.ClienteID)
+
+                                <div class="form-group">
+                                    <div class="col-lg-3 col-md-6 col-xs-12">
+                                        @Html.Label("Cliente Logui:", htmlAttributes: new { @class = "control-label" })
+                                        @Html.Editor("ClienteNombre", new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-xs-12">
+                                        @Html.Label("Usuario Principal:", htmlAttributes: new { @class = "control-label" })
+                                        @Html.Editor("EmailUsuario", new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                    </div>
+                                    <div class="col-lg-2 col-md-6 col-xs-12">
+                                        @Html.LabelFor(model => model.Activo, "Estado Cuenta:", htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownList("EstadoCliente", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Activo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <button type="submit" onclick="this.onclick = function(){return false;}" class="btnPosicion2" title="Guardar Cambios"> <i class="glyphicon glyphicon-ok"></i> </button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="UsuarioID" value="@ViewBag.UsuarioID" />
+
+            <table id="tablapersonas" class="table-condensed paddingEncabezadosTablas">
+                <thead>
+                    <tr class="barratitulosindex">
+                        <th>Empresa</th>
+                        <th>Estado</th>
+                        <th class="text-center descarto">Vendedores</th>
+                        <th class="text-center descarto">Administración</th>
+                        <th class="text-center descarto">Superusuarios</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="Lista-Empresas"></tbody>
+            </table>
+
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script>
+        $("#DatePicker1").change(function () { //cuando cambia fecha de servicio desde
+            SeleccionaFechaUltimoPago();
+        });
+
+        $("#DatePicker2").change(function () { //cuando cambia fecha de servicio desde
+            SeleccionaFechaProximoPago();
+        });
+
+        function SeleccionaFechaUltimoPago() {
+            var fechaServicioDesde = $("#DatePicker1").val();
+            var array_fechaServDes = fechaServicioDesde.split("/")
+            var anoServDes = parseInt(array_fechaServDes[2]);
+            var mesServDes = parseInt(array_fechaServDes[1]);
+            var diaServDes = parseInt(array_fechaServDes[0]);
+            var servDes = Date.parse(anoServDes + "-" + mesServDes + "-" + diaServDes);
+            var fechaServDes = new Date(servDes);
+
+            fechaServDes.setMonth(fechaServDes.getMonth() + 1);
+
+            var mes = fechaServDes.getMonth() + 1;
+            if (mes < 10) {
+                mes = '0' + mes
+            }
+            var ano = fechaServDes.getFullYear();
+            $("#DatePicker2").val("10/" + mes + "/" + ano);
+        }
+
+        function SeleccionaFechaProximoPago() {
+            var fechaServicioDesde = $("#DatePicker1").val();
+            var array_fechaServDes = fechaServicioDesde.split("/")
+            var anoServDes = parseInt(array_fechaServDes[2]);
+            var mesServDes = parseInt(array_fechaServDes[1]);
+            var diaServDes = parseInt(array_fechaServDes[0]);
+            var servDes = Date.parse(anoServDes + "-" + mesServDes + "-" + diaServDes);
+            var fechaServDes = new Date(servDes);
+
+            var fechaServicioHasta = $("#DatePicker2").val();
+            var array_fechaServHas = fechaServicioHasta.split("/")
+            var anoServHas = parseInt(array_fechaServHas[2]);
+            var mesServHas = parseInt(array_fechaServHas[1]);
+            var diaServHas = parseInt(array_fechaServHas[0]);
+            var servHas = Date.parse(anoServHas + "-" + mesServHas + "-" + diaServHas);
+            var fechaServHas = new Date(servHas);
+
+            if (fechaServHas < fechaServDes) {
+                $("#DatePicker2").val(fechaServicioDesde);
+            }
+        }
+
+
+         var moneda = new Intl.NumberFormat('en-US', {
+             currency: 'USD',
+             minimumFractionDigits: 2,
+             maximumFractionDigits: 2
+         });
+
+
+        window.onload = BuscarEmpresasUsuarios();
+
+        function BuscarEmpresasUsuarios() {
+            MostrarCarga();
+            var usuarioID = $('#UsuarioID').val();
+            $("#Lista-Empresas").empty();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("BuscarEmpresasUsuarios")',
+                data: { UsuarioID: usuarioID},
+                success: function (resultado) {
+                    var items = resultado;
+                    $.each(items, function (index, item) {
+
+                        $("#Lista-Empresas").append(
+                        "<tr style='background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%); border-color: #ddd;'>" +
+
+                            "<td class='text-bold'>" + item.RazonSocial + "</td>" +
+
+                            "<td>" +
+                            "<a class='detalletituloindex pointer text-bold' onclick='AbrirModalEstadoEmpresa(" + item.EmpresaID + ")'>" +
+                                    item.EstadoEmpresa +
+                                "</a>" +
+                            "</td>" +
+
+                            "<td class='text-center descarto'>" + item.CantUsuVendedores + "</td>" +
+
+                            "<td class='text-center descarto'>" + item.CantUsuAdministracion + "</td>" +
+
+                            "<td class='text-center descarto'>" + item.CantUsuSuperUsuarios + "</td>" +
+
+                            "<td class='tdBotones text-center'>" +
+                                "<a title='Ocultar Usuarios' class='btn-tabla ocultarCarga btnocultar" + item.EmpresaID + "' onclick='OcultarUsuarios(" + item.EmpresaID + ");'><i class='fa fa-chevron-up'></i></a>" +
+                                "<a title='Mostrar Usuarios' class='btn-tabla btnmostrar" + item.EmpresaID + "' onclick='MostrarUsuarios(" + item.EmpresaID + ");'><i class='fa fa-chevron-down'></i></a>" +
+                            "</td>" +
+
+                        "</tr>"
+
+                        );
+
+
+                        $("#Lista-Empresas").append(
+                            "<tr class='altoBotonesTabla ocultarCarga tr" + item.EmpresaID + "'>" +
+
+                            "<td></td>" +
+
+                            "<td class='text-bold'>Usuarios</td>" +
+
+                            "<td class='descarto'></td>" +
+
+                            "<td class='descarto'></td>" +
+
+                            "<td class='descarto'></td>" +
+
+                            "<td class='text-center text-bold'>Permiso</td>" +
+
+                            "<td class='tdBotones text-center'>" + "</td>" +
+
+                            "</tr>"
+                        );
+
+                        $.each(item.PersonasEmpresa, function (index, usuario) {
+
+                            $("#Lista-Empresas").append(
+                                "<tr class='altoBotonesTabla ocultarCarga tr" + item.EmpresaID +"'>" +
+
+                                "<td></td>" +
+
+                                "<td>" + usuario.Email + "</td>" +
+
+                                "<td class='descarto'></td>" +
+
+                                "<td class='descarto'></td>" +
+
+                                "<td class='descarto'></td>" +
+
+                                "<td class='text-center'>" + usuario.PermisoNombre + "</td>" +
+
+                                "<td class='tdBotones text-center'>" + "</td>" +
+
+                                "</tr>"
+                            );
+                        });
+
+                    });
+
+                    setTimeout("detectarCarga();", 500);
+                },
+                error: function (result) {
+                    alert("No anda");
+                }
+            });
+        }
+
+        function OcultarUsuarios(id) {
+            $(".tr" + id).addClass('ocultarCarga');
+            $(".btnocultar" + id).addClass('ocultarCarga');
+            $(".btnmostrar" + id).removeClass('ocultarCarga');
+        };
+
+        function MostrarUsuarios(id) {
+            $(".tr" + id).removeClass('ocultarCarga');
+            $(".btnocultar" + id).removeClass('ocultarCarga');
+            $(".btnmostrar" + id).addClass('ocultarCarga');
+        };
+
+
+        function AbrirModalEstadoEmpresa(empresaID) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("BuscarEstadoEmpresa")',
+                data: { EmpresaID: empresaID },
+                success: function (vistaPlanEmpresa) {
+                    $("#PlanEmpresaID").val(vistaPlanEmpresa.PlanEmpresaID);
+                    $("#EmpresaNombre").val(vistaPlanEmpresa.EmpresaNombre);
+                    $("#EstadoEmpresa").val(vistaPlanEmpresa.EstadoPlanID);
+                    $("#ModalEstadoEmpresa").modal("show");
+                },
+                error: function (result) {
+                    console.log("No anda");
+                }
+            });
+        }
+
+        function GuardarEstadoEmpresa() {
+            let planEmpresaID = $("#PlanEmpresaID").val();
+
+            let estadoEmpresaID = $("#EstadoEmpresa").val();
+            console.log(planEmpresaID);
+            console.log(estadoEmpresaID);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GuardarEstadoEmpresa")',
+                data: { PlanEmpresaID: planEmpresaID, PlanID: 1, EstadoPlanID: estadoEmpresaID },
+                success: function (resultado) {
+                    $("#ModalEstadoEmpresa").modal("hide");
+                    BuscarEmpresasUsuarios();
+                },
+                error: function (result) {
+                    console.log("No anda");
+                }
+            });
+        }
+
+    </script>
+}

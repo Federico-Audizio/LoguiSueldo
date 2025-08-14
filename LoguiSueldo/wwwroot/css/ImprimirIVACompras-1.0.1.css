@@ -1,0 +1,259 @@
+@page {
+    size: A4 landscape;
+    margin: 0mm 0mm 0mm 0mm;
+    background-color: white;
+}
+
+
+/*CSS para la Impresion*/
+@media print {
+    @page {
+        size: A4 landscape;
+        margin: 0mm 0mm 0mm 0mm;
+        background-color: white;
+    }
+
+    .no-imprimirFactura {
+        display: none;
+    }
+}
+
+
+
+.hojaA4 {
+    width: 290mm;
+    /* height: 192mm;*/
+    height: 196mm;
+    background-color: white;
+    margin: 14mm 0mm 0mm 0mm;
+    padding: 2mm 4mm 0mm 4mm;
+}
+
+
+
+/*CSS para la barra de titulos*/
+.barraTitulos {
+    width: 282mm;
+    height: 10mm;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.titulo {
+    font-size: 11pt;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.folio {
+    float: right;
+}
+
+.folioLeft {
+    float: left;
+}
+
+.hrIva {
+    width: 282mm;
+    margin-top: 0.5mm;
+    margin-bottom: 0mm;
+    margin-left: 0mm;
+    margin-right: 0mm;
+    border: 0;
+    border-top: 1pt solid #808080;
+}
+
+
+
+/*CSS para el div del detalle*/
+.detalle {
+    width: 282mm;
+    height: 153mm;
+    font-size: 8pt;
+    /*margin-top: 2mm;*/
+}
+
+/*CSS para el div del detalle de las retenciones*/
+.detallePercepciones {
+    width: 282mm;
+    height: 158mm;
+    font-size: 8pt;
+    margin-top: 2mm /*2mm*/;
+}
+
+
+
+/*CSS para la cabecera del detalle*/
+.detalleCabecera {
+    width: 282mm;
+}
+
+.tablaSinClase {
+    background: #fff;
+    border: 0px;
+    padding: 0em;
+}
+
+.trCabecera {
+    height: 6mm;
+    text-decoration: underline;
+    background: #fff;
+    border: 0px;
+    padding: 0em;
+    font-weight: 700;
+    font-size: 6.5pt;
+}
+
+.divCabeceraDetallesFecha {
+    width: 14mm;
+    text-align: center;
+    padding: 0em;
+    border: 0px;
+}
+
+.divCabeceraDetallesComprobante {
+    width: 33mm;
+    text-align: left;
+    padding: 0em;
+    border: 0px;
+}
+
+.divCabeceraDetallesNombre {
+    width: 42mm;
+    text-align: center;
+    padding: 0em;
+    border: 0px;
+}
+
+.divCabeceraDetallesCuit {
+    width: 18mm;
+    text-align: center;
+    padding: 0em;
+    border: 0px;
+}
+
+.divCabeceraDetallesIVAS {
+    width: 15mm;
+    text-align: right;
+    padding: 0em;
+    border: 0px;
+}
+
+.divCabeceraDetallesImportes {
+    width: 21mm;
+    text-align: right;
+    padding: 0em;
+    border: 0px;
+}
+
+
+
+/*CSS para el cuerpo del detalle*/
+.detalleCuerpo {
+    width: 282mm;
+    height: 3mm;
+    font-size: 6pt;
+    border-spacing: 0px;
+}
+
+.divCuerpoDetallesNombre {
+    width: 42mm;
+    text-align: left;
+    padding: 0em;
+    border: 0px;
+}
+
+.trCuerpo {
+    height: 3.5mm;
+    background: #fff;
+    border: 0px;
+    padding: 0em;
+}
+
+
+
+/*CSS para los SubTotales superiores de cada hoja*/
+.subTotalesIvaSuperiorSinTexto {
+    width: 282mm;
+    height: 7mm;
+    font-size: 7pt;
+}
+
+.subTotalesIvaSuperior {
+    width: 282mm;
+    font-size: 6.5pt;
+    margin-top: 0.5mm;
+}
+
+
+
+/*CSS para los SubTotales de cada hoja*/
+.subTotalesIva {
+    width: 282mm;
+    height: 12mm;
+    font-size: 8pt;
+    margin-top: 2mm;
+}
+
+.detalleSubTotales {
+    width: 280mm;
+    height: 0mm;
+}
+
+.trSubTotales {
+    height: 0mm;
+    border: 0px;
+    padding: 0em;
+}
+
+.divCabeceraDetallesSubTotales {
+    width: 26mm;
+    text-align: right;
+    padding: 0em;
+    border: 0px;
+    font-size: 7pt;
+}
+
+.divImportesSubTotales {
+    width: 2mm;
+    text-align: right;
+    padding: 0em;
+    border: 0px;
+    font-size: 7pt;
+}
+
+
+
+/*CSS para el Total Final de los detalles*/
+.TotalesIva {
+    width: 282mm;
+    /*  height: 12mm;*/
+    height: 6mm;
+    font-size: 7pt !important;
+    font-weight: bold;
+    padding-top: 0mm;
+}
+
+.trCabeceraTotales {
+    background: #fff;
+    border: 0px;
+    padding: 0em;
+}
+
+.detalleTotales {
+    width: 280mm;
+    height: 3mm;
+}
+
+.trTotales {
+    height: 3mm;
+    border: 0px;
+    padding: 0em;
+}
+
+.divImportesTotales {
+    width: 26mm;
+    text-align: right;
+    padding: 0em;
+    border: 0px;
+}

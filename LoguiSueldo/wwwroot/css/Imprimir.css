@@ -1,0 +1,36 @@
+﻿.no-imprimir {
+    display:none;
+}
+
+a:after {
+  display:none
+}
+
+.imprimirTitulo{ 
+    margin-top:-35px;  
+    font-size:25px;
+    padding-bottom:30px;
+}
+
+
+.info-persona-imprimir{
+    margin-top:-5px;
+    margin-bottom:-25px;
+     font-size:14px;
+}
+
+table tbody{
+    font-size:9px;
+}
+
+table thead{
+    font-size:11px;
+}
+
+
+
+p {
+    border:10px solid red;
+}
+
+

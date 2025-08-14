@@ -1,0 +1,175 @@
+﻿
+#formulario-datos {
+    margin-bottom: 0px
+}
+
+
+.divCabDatosCliente {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: -30px;
+    margin-right: -25px;
+    margin-bottom: -20px;
+}
+
+.divDetDatosCliente {
+    border: 1px solid #e5e5e5;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: -15px;
+    margin-right: -10px;
+}
+
+.divCabDatosComprobante {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: -25px;
+    margin-right: -31px;
+    margin-bottom: -20px;
+}
+
+.divDetDatosComprobante {
+    border: 1px solid #e5e5e5;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: -15px;
+    margin-left: -10px;
+}
+
+
+@media (max-width: 991px) {
+    #formulario-datos {
+        margin-bottom: 120px
+    }
+
+    .divCabDatosCliente {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-left: -30px;
+        margin-right: -30px;
+        margin-bottom: -20px;
+    }
+
+    .divDetDatosCliente {
+        border: 1px solid #e5e5e5;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-left: -15px;
+        margin-right: -15px;
+        margin-bottom: 10px;
+    }
+
+    .divCabDatosComprobante {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-left: -30px;
+        margin-right: -31px;
+        margin-bottom: -20px;
+    }
+
+    .divDetDatosComprobante {
+        border: 1px solid #e5e5e5;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+}
+
+
+.table-condensed tbody > tr > td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+@media screen and (max-width: 600px) {
+    .tablaTotFactura {
+        width: 100%;
+    }
+
+    .theadTablaTotFactura {
+        display: none;
+    }
+
+    .tablaTotFactura tr:nth-of-type(2n) {
+        background-color: inherit;
+    }
+
+    .tablaTotFactura tbody td {
+        display: block;
+        text-align: right;
+    }
+
+        .tablaTotFactura tbody td:before {
+            content: attr(data-label);
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+            text-align: left;
+            margin-bottom: -20px;
+        }
+
+    .tablaTotFactura td:nth-of-type(8) {
+        font-size: 16px;
+    }
+
+        .tablaTotFactura td:nth-of-type(8):before {
+            font-size: 16px;
+            margin-bottom: -22px;
+        }
+}
+
+
+.BordeRojo {
+    border: 2px solid #ff6e6c;
+}
+
+/*VENTANA FLOTANTE DE AGREGAR Y EDITAR PRODUCTO*/
+
+.titulo-popup {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: -10px;
+    margin-top: -15px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .titulo-popup {
+        font-size: 18px;
+    }
+}
+
+a.popup-cerrar {
+    text-decoration: none;
+    line-height: 1;
+    color: #c3c0c0;
+}
+
+    a.popup-cerrar:hover,
+    a.popup-cerrar:focus,
+    a.popup-cerrar:active {
+        color: #aaaaaa;
+    }
+
+.ventana_flotante {
+    z-index: 15;
+    max-width: 800px;
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
+    margin: 0px auto;
+    border: none;
+    padding: 10px 0px 20px 0px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 6px 6px 6px 6px
+}
+
+.form-articulo-factura {
+    padding: 0px 20px 0px 20px;
+}

@@ -1,0 +1,221 @@
+﻿/* ==========================================================================
+Cambiamos las propiedades para la creación de Factura cuando la Pantalla es MAYOR de 991px de ancho.
+========================================================================== */
+
+/*PARA PANTALLAS COMO MAXIMO DE ANCHO DE 1400PX USAMOS ESTAS PROPIEDADES*/
+@media (max-width: 1400px) {
+    .divCabDatosCliente {
+        padding: 5px 10px;
+        margin-left: -20px;
+        margin-right: -10px;
+        background-color: rgba(87, 87, 87, 0.12);
+        border: 1px solid rgba(87, 87, 87, 0.10);
+    }
+    .divDetDatosCliente {
+        padding: 5px 10px;
+        margin-left: -20px;
+        margin-right: -10px;
+        border: 1px solid rgba(87, 87, 87, 0.12);
+    }
+
+    .divCabDatosComprobante {
+        padding: 5px 10px;
+        margin-left: -10px;
+        margin-right: -20px;
+        background-color: rgba(87, 87, 87, 0.12);
+        border: 1px solid rgba(87, 87, 87, 0.10);
+    }
+    .divDetDatosComprobante {
+        padding: 5px 10px;
+        margin-left: -10px;
+        margin-right: -20px;
+        border: 1px solid rgba(87, 87, 87, 0.12);
+    }
+}
+
+/*PARA PANTALLAS MAYORES 1401PX DE ANCHO USAMOS ESTAS PROPIEDADES*/
+@media (min-width: 1401px) {
+    .divCabDatosCliente {
+        padding: 5px 10px;
+        margin-left: -20px;
+        margin-right: -10px;
+        background-color: rgba(87, 87, 87, 0.12);
+        border: 1px solid rgba(87, 87, 87, 0.10);
+    }
+    .divDetDatosCliente {
+        padding: 0px 15px;
+        margin-left: -20px;
+        margin-right: -10px;
+        border: 1px solid rgba(87, 87, 87, 0.12);
+    }
+
+    .divCabDatosComprobante {
+        padding: 5px 10px;
+        margin-left: -10px;
+        margin-right: -20px;
+        background-color: rgba(87, 87, 87, 0.12);
+        border: 1px solid rgba(87, 87, 87, 0.10);
+    }
+    .divDetDatosComprobante {
+        padding: 0px 15px;
+        margin-left: -10px;
+        margin-right: -20px;
+        border: 1px solid rgba(87, 87, 87, 0.12);
+    }
+}
+
+.divObservacion {
+    margin-top:-5px;
+    margin-bottom:-5px;
+    margin-left:-20px;
+    margin-right:-20px;
+}
+
+.headDetalleComprobante {
+    padding: 5px 10px;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 0px;
+    margin-top: -15px;
+    background-color: rgba(87, 87, 87, 0.12);
+    border: 1px solid rgba(87, 87, 87, 0.10);
+}
+.divCuerpoDetalle {
+    margin-top:-15px;
+    margin-left:-15px;
+    margin-right:-15px; 
+    margin-bottom:-15px;
+    /*margin-left:-20px;
+    margin-right:-20px;*/
+}
+.divCuerpoDetalleConsulta {
+    margin-left:-20px;
+    margin-right:-20px;
+    /*margin-bottom:-15px;*/
+}
+.headTotalesComprobante {
+    padding: 5px 10px;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 0px;
+    margin-top: -15px;
+    background-color: rgba(87, 87, 87, 0.12);
+    border: 1px solid rgba(87, 87, 87, 0.10);
+}
+.divCuerpoTotales {
+    /*margin-left:-20px;
+    margin-right:-20px;*/
+      margin-top:-15px;
+    margin-left:-15px;
+    margin-right:-15px; 
+    margin-bottom:-15px;
+}
+
+.divCuerpoTotalesConsulta {
+    margin-left:-20px;
+    margin-right:-20px;
+    margin-bottom:-15px;
+}
+
+
+
+/* ==========================================================================
+Cambiamos las propiedades para la creación de Factura cuando la Pantalla es MENOR de 991px de ancho.
+========================================================================== */
+@media (max-width: 991px) {
+    .divCabDatosCliente {
+        padding: 5px 10px;
+        margin-left: -20px;
+        margin-right: -20px;
+        background-color: rgba(87, 87, 87, 0.12);
+        border: 1px solid rgba(87, 87, 87, 0.10);
+    }
+    .divDetDatosCliente {
+        padding: 5px 10px;
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(87, 87, 87, 0.12);
+    }
+ 
+
+    .divCabDatosComprobante {
+        padding: 5px 10px;
+        margin-left: -20px;
+        margin-right: -20px;
+        background-color: rgba(87, 87, 87, 0.12);
+        border: 1px solid rgba(87, 87, 87, 0.10);
+    }
+    .divDetDatosComprobante {
+        padding: 0px 10px;
+        margin-left: -20px;
+        margin-right: -20px;
+        border: 1px solid rgba(87, 87, 87, 0.12);
+    }
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .tablaTotFactura {
+        width: 100%;
+    }
+
+    .theadTablaTotFactura {
+        display: none;
+    }
+
+    .tablaTotFactura tr:nth-of-type(2n) {
+        background-color: inherit;
+    }
+
+    .tablaTotFactura tbody td {
+        display: block;
+        text-align: right;
+    }
+
+    .tablaTotFactura tbody td:before {
+        content: attr(data-label);
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+        text-align: left;
+        margin-bottom: -20px;
+    }
+
+    .tablaTotFactura td:nth-of-type(8) {
+        font-size: 16px;
+    }
+
+    .tablaTotFactura td:nth-of-type(8):before {
+        font-size: 16px;
+        margin-bottom: -22px;
+    }
+}
+
+
+
+/* ==========================================================================
+Cambiamos los margenes para el body de las pestañas en la consulta de facturas no Aprobadas.
+========================================================================== */
+.divPestañas {
+    margin-left:-5px;
+    margin-right:-5px;
+    margin-bottom:10px;
+}
+
+
+/* ==========================================================================
+Cambiamos los margenes para el body de las pestañas en la consulta de facturas no Aprobadas.
+========================================================================== */
+.headErrores {
+    padding: 5px 10px;
+    margin-left: -20px;
+    margin-right: -20px;
+    background-color: rgba(87, 87, 87, 0.12);
+    border: 1px solid rgba(87, 87, 87, 0.10);
+}
+.divCuerpoErrores {
+    margin-left:-20px;
+    margin-right:-20px;
+}

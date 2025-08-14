@@ -1,0 +1,112 @@
+﻿@*@model IEnumerable<LoguiContable.Models.ListadoEmpresaUsuario>*@
+
+@{
+    ViewBag.Title = "Empresas";
+}
+
+<div>
+    <section class="content-header">
+        <h1>
+            EMPRESA
+            <small>Grupo de Trabajo</small>
+        </h1>
+    </section>
+    <section class="content">
+
+        <div id="info-empresa">
+
+        </div>
+
+    </section>
+</div>
+
+
+@section Scripts{
+    <script language="javascript">
+        function PulsarTecla(event) {
+            tecla = event.keyCode;
+
+            if (tecla == 107 && event.altKey) {
+                document.getElementById("agregar-persona").click();
+            }
+        }
+
+        window.onkeydown = PulsarTecla;
+    </script>
+
+    <script>
+        window.onload = BuscarEmpresas();
+
+        //consulta de personas
+        function BuscarEmpresas() {
+            MostrarCarga();
+            $("#Lista-Empresas").empty();
+            $("#info-empresa").empty();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("EmpresasUsuario")',
+                data: { },
+            success: function (resultado) {
+                var items = resultado;
+
+                $.each(items, function (index, item) {
+                    var usuarios = "";
+
+                    $.each(item.PersonasEmpresa, function (index, persona) {
+                        usuarios += "<p class='text-black' style='font-size:13px'><strong>" + persona.NombreCompleto + " : </strong>" + persona.PermisoNombre + "</p>";
+                    });
+
+
+                    $("#info-empresa").append(
+                        "<a href='../../Empresas/Edit/" + item.EmpresaID + "' name='btn-submit' class='NoSubrayar'>" +
+                        "<div class='panel panel-default'>" +
+                        "<div class='cuadro-plan'>" +
+                        "<div class='panel-body'>" +
+                        "<div class='form-group'>" +
+                        "<div class='text-left'>" +
+
+                        "<div class='col-lg-6'>" +
+                        "<p class='text-bold' style='font-size:20px;'>" + item.RazonSocial + "</p>" +
+                        "<p class='text-black' style='font-size:13px'><strong>I.V.A. : </strong>" + item.TipoContribuyenteNombre + "</p>" +
+                        "<p class='text-black' style='font-size:13px; margin-bottom:20px'><strong>" + item.TipoDocumentoNombre + " : </strong>" + item.NroTipoDocumento + "</p>" +
+
+                        "</div>" +
+
+                        "<div class='col-lg-6'>" +
+                        "<p class='text-bold' style='font-size:15px;'>USUARIOS DEL SISTEMA</p>" +
+
+                        "<div>" + usuarios + "</div>" +
+
+                        "</div>" +
+
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</a>"
+                    );
+                });
+
+                setTimeout("detectarCarga();", 500);
+            },
+            error: function (result) {
+            }
+        });
+        }
+
+        function OcultarUsuariosTarea(id) {
+            $(".trUsuarioTarea" + id).addClass('ocultar');
+            $(".btnocultarEmpleados" + id).addClass('ocultar');
+            $(".btnmostrarEmpleados" + id).removeClass('ocultar');
+        };
+
+        function MostrarUsuariosTarea(id) {
+            $(".trUsuarioTarea" + id).removeClass('ocultar');
+            $(".btnocultarEmpleados" + id).removeClass('ocultar');
+            $(".btnmostrarEmpleados" + id).addClass('ocultar');
+        };
+
+    </script>
+
+}

@@ -1,0 +1,54 @@
+@* VENTANA EMERGENTE CARGA DEL PERSONA (REEMPLAZA AL CREATE) *@
+<div id="ModalCrearPersona" class="modal fade ModalCrearPersona" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" style="margin: 10.75rem auto !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Crear nueva Persona</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal form-articulo-factura" role="form" style="margin-top:0px">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label">Nombre y Apellido / Razón Social <span class="requerido">*</span></label>
+                                <input type="text" class="form-control requerido" id="NombreCompleto" autocomplete="off" style="text-transform:uppercase" />
+                                <p class="ocultar requerido" id="requerido-NombreCompleto">*Campo Requerido.</p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label class="control-label">Nombre de Fantasía</label>
+                                <input type="text" class="form-control" id="NombreFantasia" autocomplete="off" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label class="control-label">Tipo Contribuyente</label>
+                                @Html.DropDownList("TipoContribuyenteID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label class="control-label">Tipo de Documento</label>
+                                @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label class="control-label">Nº de Documento</label>
+                                <input class="form-control" id="NroTipoDocumento" type="tel" autocomplete="off" />
+                                <p class="ocultar requerido" id="existente-NroTipoDocumento">*Persona existente</p>
+                                <p class="ocultar requerido" id="requerido-NroTipoDocumento">*Campo Requerido si es DNI o CUIT</p>
+                                <p class="aclaracion-input">*Sólo números.</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <div class="text-center">
+                    <button type="button" onclick="CancelarPersonaNueva();" id="btn-cancelar" class="btn-ovalo" data-dismiss="modal">Cancelar</button>
+                    <button type="button" onclick="RegistrarPersonaNueva();" id="btn-guardarNuevo" class="btn-ovalo">Siguiente</button>
+                    <button type="button" id="btn-espereNuevo" class="btn-ovalo ocultar">Espere...</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

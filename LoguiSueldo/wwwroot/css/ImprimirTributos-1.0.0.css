@@ -1,0 +1,567 @@
+@page {
+    size: A4;
+    margin: 0mm 0mm 0mm 0mm;
+    background-color: white;
+}
+
+.principal {
+    width: 200mm;
+    height: 144mm;
+    padding-left: 5mm;
+    padding-top: 11mm;
+    margin-top: 1.5mm;
+}
+
+
+
+
+/* INICIO ESTILOS SANTA FE. */
+.logo {
+    position: relative;
+    z-index: 2;
+    color: black;
+    background-color: white;
+    border: 0.3px solid black;
+    font-weight: normal;
+    float: left;
+    width: 90mm;
+    height: 40mm;
+    text-align: left;
+    padding-left: 2mm;
+}
+
+.imagenEmpresa {
+    height: 87pt;
+}
+
+.cuadros {
+    position: relative;
+    z-index: 3;
+    font-size: 9pt;
+    color: black;
+    background-color: white;
+    border: 0.2px solid black;
+    font-weight: bold;
+    float: left;
+    text-align: left;
+    width: 90mm;
+    height: 40mm;
+}
+
+    .cuadros.uno {
+        border-left-color: transparent;
+    }
+
+    .cuadros.dos {
+        border-top-color: transparent;
+    }
+
+    .cuadros.tres {
+        border-top-color: transparent;
+        border-left-color: transparent;
+    }
+
+.tituloDatosCertificado {
+    font-size: 11pt;
+    text-align: center;
+    margin-top: 1mm;
+}
+
+.lineaDivisoriaTitulo {
+    position: absolute;
+    z-index: 5;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 8mm;
+    width: 90mm;
+    margin-top: 0px;
+    border-bottom: 0.1px solid black;
+}
+
+.datosCert {
+    font-size: 10pt;
+    position: absolute;
+    z-index: 6;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 32mm;
+    width: 90mm;
+    margin-top: 8mm;
+    margin-left: -0.1mm;
+    padding: 5mm 7mm 0mm 7mm;
+}
+
+    .datosCert p {
+        display: flex;
+        justify-content: space-between;
+    }
+
+.alinearDerecha {
+    text-align: right;
+}
+
+
+
+
+.datosEmpresa {
+    font-size: 7pt;
+    position: absolute;
+    z-index: 7;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 32mm;
+    width: 90mm;
+    margin-top: 8mm;
+    margin-left: 0mm;
+    padding: 2mm 2mm 0mm 2mm;
+    font-weight: normal;
+}
+
+    .datosEmpresa p {
+        margin: 0 0 0.5mm 0;
+    }
+
+        .datosEmpresa p span {
+            font-weight: bold;
+        }
+
+
+.datosProveedor {
+    font-size: 7pt;
+    position: absolute;
+    z-index: 8;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 32mm;
+    width: 90mm;
+    margin-top: 8mm;
+    padding: 2mm 2mm 0mm 2mm;
+    font-weight: normal;
+}
+
+    .datosProveedor p {
+        margin: 0 0 0.5mm 0;
+    }
+
+        .datosProveedor p span {
+            font-weight: bold;
+        }
+
+
+
+
+.cuadro3 {
+    position: relative;
+    z-index: 9;
+    font-size: 9pt;
+    color: black;
+    background-color: white;
+    border: 0.1px solid black;
+    font-weight: bold;
+    float: left;
+    text-align: left;
+    width: 180mm;
+    height: 40mm;
+    margin-top: -0.3mm;
+}
+
+.lineaDivisoriaTituloComprobante {
+    position: absolute;
+    z-index: 5;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 8mm;
+    width: 180mm;
+    margin-top: 0px;
+    border-bottom: 0.1px solid black;
+}
+
+.datosComprobante {
+    font-size: 8pt;
+    position: absolute;
+    z-index: 7;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 32mm;
+    width: 180mm;
+    margin-top: 8mm;
+    margin-left: 0mm;
+    padding: 1mm 2mm 0mm 2mm;
+    font-weight: normal;
+}
+
+    .datosComprobante p {
+        margin: 0 0 0mm 0;
+    }
+
+        .datosComprobante p span {
+            font-weight: bold;
+        }
+/* FIN ESTILOS SANTA FE. */
+
+
+
+
+
+
+
+/* INICIO ESTILOS PARA LOS DEMÁS. */
+.tituloGeneral {
+    text-align: center;
+}
+
+.tituloDGR {
+    font-size: 14pt;
+    text-align: center;
+    width: 35mm;
+    height: 13mm;
+    float: left;
+}
+
+.titulo2 {
+    text-align: center;
+    width: 97mm;
+    height: 13mm;
+    float: left;
+}
+
+.titulo3 {
+    text-align: center;
+    width: 55mm;
+    height: 13mm;
+    float: left;
+}
+
+.titulos {
+    margin-top: 2mm;
+    margin-left: 2mm;
+}
+
+
+.cuadroRubro1 {
+    position: relative;
+    z-index: 3;
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    border: 0.2px solid black;
+    font-weight: bold;
+    float: left;
+    text-align: left;
+    width: 142mm;
+    height: 18mm;
+}
+
+.lineaDivisoriaTitulo1 {
+    position: absolute;
+    z-index: 4;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 8mm;
+    width: 142mm;
+    margin-top: 0px;
+    border-bottom: 0.1px solid black;
+    font-weight: normal;
+}
+
+.datosRubro1 {
+    font-size: 9pt;
+    position: absolute;
+    z-index: 5;
+    float: left;
+    margin-left: 0mm;
+    height: 9mm;
+    width: 140mm;
+    margin-top: 8mm;
+    margin-left: 0mm;
+    padding: 2mm 2mm 0mm 2mm;
+}
+
+    .datosRubro1 p {
+        margin: 1mm 0 0 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .datosRubro1 p span {
+            text-align: right;
+        }
+
+
+.cuadroRubro1-2 {
+    position: relative;
+    z-index: 6;
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    border: 0.2px solid black;
+    font-weight: bold;
+    float: left;
+    text-align: left;
+    width: 41mm;
+    height: 18mm;
+    margin-left: 4mm;
+}
+
+.lineaDivisoriaTitulo1-2 {
+    position: absolute;
+    z-index: 7;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 8mm;
+    width: 41mm;
+    margin-top: 0px;
+    border-bottom: 0.1px solid black;
+    font-weight: normal;
+}
+
+.datosRubro1-2 {
+    font-size: 9pt;
+    position: absolute;
+    z-index: 8;
+    float: left;
+    margin-left: 0mm;
+    height: 9mm;
+    width: 41mm;
+    margin-top: 8mm;
+    margin-left: 0mm;
+    padding: 3mm 2mm 0mm 2mm;
+    text-align: center;
+}
+
+
+
+.cuadroRubro2 {
+    position: relative;
+    z-index: 9;
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    border: 0.2px solid black;
+    float: left;
+    text-align: left;
+    width: 187mm;
+    height: 25mm;
+    margin-top: 2mm;
+    font-weight: normal;
+}
+
+.lineaDivisoriaTitulo2 {
+    position: absolute;
+    z-index: 10;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 8mm;
+    width: 187mm;
+    margin-top: 0px;
+    border-bottom: 0.1px solid black;
+    font-weight: normal;
+}
+
+.datosRubro2 {
+    font-size: 9pt;
+    position: absolute;
+    z-index: 11;
+    float: left;
+    margin-left: 0mm;
+    height: 12mm;
+    width: 187mm;
+    margin-top: 8mm;
+    margin-left: 0mm;
+    padding: 2mm 2mm 0mm 2mm;
+}
+
+    .datosRubro2 p {
+        margin: 0mm 0 0.5mm 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .datosRubro2 p span {
+            text-align: right;
+        }
+
+        .datosRubro2 p b {
+            text-align: left;
+        }
+
+
+
+
+.cuadroRubro3 {
+    position: relative;
+    z-index: 12;
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    float: left;
+    text-align: left;
+    width: 187mm;
+    height: 60mm;
+    margin-top: 2mm;
+    font-weight: normal;
+}
+
+.lineaDivisoriaTitulo3 {
+    position: absolute;
+    z-index: 13;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 8mm;
+    width: 187mm;
+    margin-top: 0px;
+    border: 0.2px solid black;
+    font-weight: normal;
+}
+
+.tablaRubro3 {
+    position: relative;
+    z-index: 14;
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    /*border: 0.1px solid black;*/
+    font-weight: bold;
+    float: left;
+    text-align: left;
+    width: 90mm;
+    height: 30mm;
+    margin-top: 10mm;
+}
+
+    .tablaRubro3 table th {
+        border: 0.1px solid black;
+        text-align: center;
+        font-weight: normal;
+    }
+
+    .tablaRubro3 table td {
+        border: 0.1px solid black;
+        text-align: center;
+        font-weight: bold;
+    }
+
+
+.fechaAcreditacion {
+    position: relative;
+    z-index: 15;
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    border: 0.1px solid black;
+    font-weight: normal;
+    float: left;
+    text-align: left;
+    width: 52mm;
+    height: 15mm;
+    margin-top: 10mm;
+    margin-left: 3mm
+}
+
+.lineaDivisoriaTituloFechaAcreditacion {
+    position: absolute;
+    z-index: 13;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 6mm;
+    width: 52mm;
+    margin-top: 0px;
+    border-bottom: 0.1px solid black;
+    font-weight: normal;
+}
+
+.datosFechaAcreditacion {
+    font-size: 9pt;
+    position: absolute;
+    z-index: 11;
+    float: left;
+    margin-left: 0mm;
+    height: 9mm;
+    width: 52mm;
+    margin-top: 8mm;
+    margin-left: 0mm;
+    padding: 1mm 2mm 0mm 2mm;
+    font-weight: bold;
+    text-align: center;
+}
+
+.infoComprobante {
+    position: relative;
+    z-index: 15;
+    font-size: 8pt;
+    color: black;
+    background-color: white;
+    border: 0.1px solid black;
+    font-weight: normal;
+    float: left;
+    text-align: left;
+    width: 41mm;
+    height: 18mm;
+    margin-top: 10mm;
+    margin-left: 1mm
+}
+
+.lineaDivisoriaTituloInfoComprobante {
+    position: absolute;
+    z-index: 13;
+    position: center;
+    float: left;
+    margin-left: 0mm;
+    height: 6mm;
+    width: 41mm;
+    margin-top: 0px;
+    border-bottom: 0.1px solid black;
+    font-weight: normal;
+}
+
+.datosInfoComprobante {
+    font-size: 9pt;
+    position: absolute;
+    z-index: 11;
+    float: left;
+    margin-left: 0mm;
+    height: 12mm;
+    width: 41mm;
+    margin-top: 8mm;
+    margin-left: 0mm;
+    padding: 0mm 2mm 0mm 2mm;
+    font-weight: bold;
+    text-align: center;
+}
+
+    .datosInfoComprobante p {
+        margin: 0mm 0 0.5mm 0;
+    }
+
+
+
+.textoFinal {
+    margin: auto 0 0 0;
+}
+/* FIN ESTILOS PARA LOS DEMÁS. */
+@media print {
+    @page {
+        size: A4;
+        margin: 3mm 3mm 3mm 3mm;
+        background-color: white;
+    }
+
+    .no-imprimirFactura {
+        display: none;
+    }
+
+    .principal {
+        /*margin-left: 7mm;*/
+    }
+}

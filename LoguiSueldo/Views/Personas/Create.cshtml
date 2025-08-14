@@ -1,0 +1,1027 @@
+﻿@model LoguiContable.Models.Persona
+
+@{
+    ViewBag.Title = "Nueva Persona";
+}
+
+<a id="atras" class="btn-success btnPosicion1" href="~/Personas/Index" title="Volver">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<div id="vista-usuario" class="row div-hidden">
+
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-7">
+            <div class="form-horizontal">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <p class="subtitulo-panel-heading"><span>Datos Generales</span></p>
+                    </div>
+
+                    <div class="panel-body">
+
+
+                        @Html.AntiForgeryToken()
+
+                        <div>
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                @if (ViewBag.PermisoUsuario != 3)
+                                {
+                                    <div class="col-md-8">
+                                        @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", autofocus = "true", @style = "text-transform:uppercase;" } })
+                                        @Html.ValidationMessageFor(model => model.NombreCompleto, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-12">
+                                        @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", autofocus = "true", @style = "text-transform:uppercase;" } })
+                                        @Html.ValidationMessageFor(model => model.NombreCompleto, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.NombreFantasia, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.NombreFantasia, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.NombreFantasia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.Label("Localidad", htmlAttributes: new { @class = "control-label" })
+                                    <input type="hidden" id="LocalidadID" name="LocalidadID" value="@ViewBag.LocalidadID" />
+                                    <input type="text" id="LocalidadNombre" class="form-control" value="@ViewBag.LocalidadNombre" placeholder="Ingrese el nombre de la localidad" onclick="this.select()" style="text-transform:uppercase;" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    @Html.LabelFor(model => model.DireccionReal, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.DireccionReal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @style = "text-transform:uppercase;" } })
+                                    @Html.ValidationMessageFor(model => model.DireccionReal, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.TipoContribuyenteID, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("TipoContribuyenteID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TipoContribuyenteID, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.TipoDocumentoID, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TipoDocumentoID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.NroTipoDocumento, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.NroTipoDocumento, new { htmlAttributes = new { @class = "form-control", @id = "NroTipoDocumento", autocomplete = "off", type = "tel" } })
+                                    @Html.ValidationMessageFor(model => model.NroTipoDocumento, "", new { @class = "text-danger" })
+                                    <p class="aclaracion-input">*Sólo números.</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.Telefono1, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Telefono1, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", type = "tel" } })
+                                    @Html.ValidationMessageFor(model => model.Telefono1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.CorreoElectronico, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.CorreoElectronico, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @style = "text-transform:lowercase;" } })
+                                    @Html.ValidationMessageFor(model => model.CorreoElectronico, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <button type="submit" title="Guardar" id="btn-submit" onclick="OcultarSubmit();" class="btn-success btnPosicion2"> <i class="glyphicon glyphicon-ok"></i> </button>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* especifico *@
+        <div class="col-md-5">
+            <div class="form-horizontal">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <p class="subtitulo-panel-heading"><span>Datos Específicos</span></p>
+                    </div>
+
+                    <div class="panel-body">
+                        @* pestañas *@
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab-juridico" aria-expanded="false">Profesional</a>
+                            </li>
+                            @if (ViewBag.PermisoUsuario == 1)
+                            {
+                                <li>
+                                    <a data-toggle="tab" href="#tab-usuario" aria-expanded="false">Usuario</a>
+                                </li>
+                            }
+                            <li id="pestaña-credenciales" style="display:none">
+                                <a data-toggle="tab" href="#tab-googlecalendar" aria-expanded="false">Calendario</a>
+                            </li>
+                        </ul>
+
+                        @* contenido *@
+                        <div class="tab-content">
+
+                            <div class="tab-pane active" id="tab-juridico">
+
+                                <div style="margin-top:10px; min-height:50px; height:100%">
+                                    <div id="div-btn-datosprofesional" class="text-center" style="margin-top:30px;">
+                                        <a id="agregar-datosprofesional" class="btn-ovalo">Ingresar Datos</a>
+                                    </div>
+
+                                    <div id="form-agregar-datosprofesional" class="ocultarCarga" style="margin-top:11px;">
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                @Html.Label("Tipo de Profesional", htmlAttributes: new { @class = "control-label" })
+                                                @Html.DropDownList("TipoProfesionalID", null, htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.Label("Matrícula", htmlAttributes: new { @class = "control-label" })
+                                                <input type="text" class="form-control" id="Matricula" name="Matricula" style="text-transform:uppercase;" autocomplete="off" value="@ViewBag.Matricula" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                @Html.Label("Lugar de Trabajo", htmlAttributes: new { @class = "control-label" })
+                                                <input type="text" class="form-control" id="EstudioJuridico" name="EstudioJuridico" style="text-transform:uppercase;" autocomplete="off" value="@ViewBag.EstudioJuridico" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="AgregarUsuario" value="0" />
+                            @if (ViewBag.PermisoUsuario == 1)
+                            {
+                                <div class="tab-pane" id="tab-usuario">
+                                    <div style="margin-top:10px; min-height:50px; height:100%">
+
+                                        <div id="div-btn-agregarusuario" class="text-center" style="margin-top:30px;">
+                                            <a id="agregar-usuario" class="btn-ovalo">Nuevo Usuario</a>
+                                            <a id="agregar-usuario-existente" class="btn-ovalo">Usuario Existente</a>
+                                        </div>
+
+                                        <div id="form-agregar-usuario" class="ocultarCarga" style="margin-top:10px;">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    @Html.Label("Correo Electrónico", htmlAttributes: new { @class = "control-label" })
+                                                    <input type="email" class="form-control" id="email-usuario" placeholder="Email" style="text-transform:lowercase;" autocomplete="off" />
+                                                    <p class="ocultarCarga" id="error-email" style="font-size:14px; color: red; margin-bottom:-10px"></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div id="Div-PermisoID" class="col-md-6">
+                                                    @Html.Label("Permiso", htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownList("PermisoID", null, htmlAttributes: new { @class = "form-control", id = "PermisoID" })
+                                                </div>
+                                                <div id="Div-Contraseña" class="col-md-6">
+                                                    @Html.Label("Contraseña", htmlAttributes: new { @class = "control-label" })
+                                                    <input type="text" class="form-control" id="contraseña-usuario" placeholder="Contraseña" />
+                                                    <p id="longitud-minima" style="color:#696969; font-size:12px">*Longitud mínima de 6 caracteres.</p>
+                                                    <p class="ocultarCarga" id="requerido-contraseña" style="margin-top:-13px ;font-size:14px; color: red">*Campo Requerido</p>
+                                                    <p class="ocultarCarga" id="corto-contraseña" style="font-size:14px; color: red">*Longitud mínima de 6 caracteres</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style="margin-top:15px">
+                                                <div class="text-center">
+                                                    <a id="btn-agregarusuario-cancelar" class="btn-ovalo">Cancelar</a>
+                                                    <a id="btn-agregarusuario-Eliminar" class="btn-ovalo ocultarCarga">Desvincular</a>
+                                                    <a id="btn-agregarusuario-Vincular" class="btn-ovalo ocultarCarga">Vincular</a>
+                                                    <a id="btn-agregarusuario-guardar" class="btn-ovalo">Guardar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+
+                            @*Carga de credenciales de calendario*@
+                            <div class="tab-pane" id="tab-googlecalendar">
+                                @if (ViewBag.PlanEmpresa != 1)
+                                {
+                                    <div style="margin-top:10px; min-height:50px; height:100%">
+                                        <div style="margin-top:10px;">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    @Html.Label("ID del Calendario", htmlAttributes: new { @class = "control-label" })
+                                                    <input type="text" class="form-control" id="codigo-calendario" autocomplete="off" />
+                                                    <p id="error-codigoCalendario" style="font-size:14px; color: red; margin-bottom:0px"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-8">
+                                                    @Html.Label("Sincronización", htmlAttributes: new { @class = "control-label" })
+                                                    <select class="form-control" id="sincronizar-calendario">
+                                                        <option value="1">Activada</option>
+                                                        <option value="0">Desactivada</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 text-center" style="padding-top:25px">
+                                                    <a id="btn-agregarcredencialescalendar-guardar" class="btn-ovalo">Guardar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <div class="alert alert-info text-center" style="font-size:16px; margin-top:20px; margin-bottom:0px">
+                                            <strong>Esta opción solo está disponible para usuarios Premium.</strong>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    }
+
+    @* contactos *@
+    <div class="col-md-5">
+        <div class="form-horizontal">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <p class="subtitulo-panel-heading"><span>Datos de los Contactos</span></p>
+                </div>
+
+                <div class="panel-body">
+
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab-contactos" aria-expanded="false">Contactos</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-contactos">
+                            <div class="form-group">
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.Label("Nombre", htmlAttributes: new { @class = "control-label" })
+                                    @Html.HiddenFor(x => x.CabeceraPersonaId)
+                                    @Html.TextBoxFor(x => x.NombreCompleto, new { @class = "form-control", placeholder = "Buscar contacto", id = "Persona", @required = "required", @onClick = "this.select()", @style = "text-transform:uppercase;" })
+                                </div>
+                                <div class="col-md-4 col-sm-4 text-center" style="padding-top:25px">
+                                    <a id="nueva-persona" style="margin-left:-20px;" class="btn-ovalo">Nueva Persona</a>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:13px">
+                                @* pestañas *@
+                                <ul class="nav nav-tabs2" id="Pestañas"></ul>
+
+                                @* contenido *@
+                                <div class="tab-content" id="cuerpo-pestaña">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@Styles.Render("~/Scripts/jquery-ui/jquery-ui.min.css")
+@section Scripts {
+
+    <script language="javascript">
+        function PulsarTecla(event) {
+            tecla = event.keyCode;
+
+            if (tecla == 8 && event.altKey) {
+                document.getElementById("atras").click();
+            }
+        }
+
+        window.onkeydown = PulsarTecla;
+    </script>
+
+    <script src="~/Scripts/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Scripts/Mascaras/jquery.maskedinput.min.js"></script>
+    <script>
+    /* Autocomplete de producto, jquery UI */
+    $("#Persona").autocomplete({
+        dataType: 'JSON',
+        source: function (request, response) {
+            jQuery.ajax({
+                url: '/Personas/BuscarPersona',
+                type: "post",
+                dataType: "json",
+                data: {
+                    nombre: request.term, PersonaID : 0
+                },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {
+                            id: item.PersonaID,
+                            value: item.NombreCompleto
+                        }
+                    }))
+                }
+            })
+        },
+        select: function (e, ui) {
+            $("#CabeceraPersonaId").val(ui.item.id);
+            indice = 1;
+            agregarContacto(indice);
+        }
+    });
+
+    $(document).ready(function () {
+        $('#btn-agregarDatosJuridicos').click(function () {
+            agregarDatosJuridicos();
+            return false;
+        });
+    });
+
+    //agregar persona como usuario
+    $('#agregar-usuario').click(function () {
+        $('#div-btn-agregarusuario').addClass('ocultarCarga');
+        $('#form-agregar-usuario').removeClass('ocultarCarga');
+        $('#Div-PermisoID').removeClass('col-md-12');
+        $('#Div-PermisoID').addClass('col-md-6');
+        $('#Div-Contraseña').removeClass('ocultarCarga');
+        $('#AgregarUsuario').val(1);
+    });
+
+    $('#agregar-usuario-existente').click(function () {
+        $('#div-btn-agregarusuario').addClass('ocultarCarga');
+        $('#form-agregar-usuario').removeClass('ocultarCarga');
+        $('#Div-PermisoID').removeClass('col-md-6');
+        $('#Div-PermisoID').addClass('col-md-12');
+        $('#Div-Contraseña').addClass('ocultarCarga');
+        $('#AgregarUsuario').val(2);
+    });
+
+        $('#btn-agregarusuario-Eliminar').click(function () {
+            var r = confirm('¿Está SEGURO de desvincular el Usuario de esta Persona?');
+            if (r == true) {
+                EstadoPermisoUsuario(true);
+            } else {
+                //txt = "You pressed Cancel!";
+                return false;
+            }
+        });
+
+        $('#btn-agregarusuario-Vincular').click(function () {
+            var r = confirm('¿Está SEGURO de vincular nuevamente el Usuario de esta Persona?');
+            if (r == true) {
+                EstadoPermisoUsuario(false);
+            } else {
+                //txt = "You pressed Cancel!";
+                return false;
+            }
+        });
+
+        function EstadoPermisoUsuario(Desvinculado) {
+            var Email = $('#email-usuario').val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("EstadoPermisoUsuario")',
+                data: { Email: Email, PersonaID: 0, Desvinculado: Desvinculado },
+                success: function (resultado) {
+                    //cargarDatosUsuarios(Email = "", PermisoID = 0, Contraseña = "", 0);
+                    if (resultado == 5) {
+                        $('#error-email').removeClass('ocultarCarga');
+                        $('#error-email').append("*Su plan ha llegado al límite de Usuarios.");
+                    }
+                    else {
+                        cargarDatosUsuarios(Email = "", PermisoID = 0, Contraseña = "", 0);
+                    }
+                },
+                error: function (result) {
+                    alert("No se pudo eliminar el usuario.");
+                }
+            });
+        }
+
+    $('#btn-agregarusuario-cancelar').click(function () {
+        $('#div-btn-agregarusuario').removeClass('ocultarCarga');
+
+        $("#email-usuario").val('');
+
+        $('#error-email').empty();
+        $('#error-email').addClass('ocultarCarga');
+
+        $("#contraseña-usuario").val('');
+        $('#requerido-contraseña').addClass('ocultarCarga');
+
+        $('#form-agregar-usuario').addClass('ocultarCarga');
+    });
+
+    $('#btn-agregarusuario-guardar').click(function () {
+
+        var Email = $('#email-usuario').val();
+        var PermisoID = $('#PermisoID').val();
+        var Contraseña = $('#contraseña-usuario').val();
+        var UsuarioNuevoExistente = $('#AgregarUsuario').val();
+
+        if (UsuarioNuevoExistente == 1 || UsuarioNuevoExistente == 2){
+            if (Email != "") {
+
+                $('#error-email').empty();
+                $('#error-email').addClass('ocultarCarga');
+
+                if (UsuarioNuevoExistente == 2){//USUARIO EXISTENTE
+                    cargarDatosUsuarios(Email, PermisoID, Contraseña, UsuarioNuevoExistente);
+                }
+                else {//USUARIO NUEVO
+                    if (Contraseña != ""){
+                        $('#requerido-contraseña').addClass('ocultarCarga');
+
+                        if (Contraseña.length < 6 && UsuarioNuevoExistente == 1) {
+                            $('#corto-contraseña').removeClass('ocultarCarga');
+                            $('#longitud-minima').addClass('ocultarCarga');
+                        }
+                        else {
+                            cargarDatosUsuarios(Email, PermisoID, Contraseña, UsuarioNuevoExistente);
+                        }
+
+                    }
+                    else {
+                        $('#requerido-contraseña').removeClass('ocultarCarga');
+                    }
+                }
+            }
+            else {
+                $('#error-email').removeClass('ocultarCarga');
+                $('#error-email').append("*El Email es Requerido");
+            }
+        }
+    });
+
+    $("#PermisoID").change(function () {
+        $('#btn-agregarusuario-guardar').removeClass('ocultarCarga');
+    });
+
+      function cargarDatosUsuarios(Email, PermisoID, Contraseña, UsuarioNuevoExistente) {
+            MostrarCarga();
+             $.ajax({
+                type: "POST",
+                url: '@Url.Action("GuardarDatosUsuario")',
+                data: { Email: Email, PermisoID: PermisoID, Contraseña: Contraseña, PersonaID: 0 , UsuarioNuevoExistente: UsuarioNuevoExistente},
+                success: function (data) {
+
+                    $('#error-email').empty();
+
+                    $('#requerido-contraseña').addClass('ocultarCarga');
+                    $('#corto-contraseña').addClass('ocultarCarga');
+                    $('#longitud-minima').removeClass('ocultarCarga');
+
+
+                    if (data.Resultado == 0) {
+                        $('#error-email').addClass('ocultarCarga');
+                        $('#email-usuario').val(data.Email);
+                        //$('#contraseña-usuario').val(data.Contraseña);
+
+                        if (data.Email != "") {
+                            //bloquear escritura de email y contraseña.
+                            document.getElementById('email-usuario').readOnly = true;
+                            //document.getElementById('contraseña-usuario').readOnly = true;
+
+                            if (data.PermisoID != 0) {
+                                $("#PermisoID option[value=" + data.PermisoID + "]").attr("selected", true);
+                            }
+                            //volvemos a abrir ese formulario
+                            document.getElementById("agregar-usuario-existente").click();
+                            $('#AgregarUsuario').val(0);
+
+                            //al tener datos ocultamos el boton cancelar
+                            $('#btn-agregarusuario-cancelar').addClass('ocultarCarga');
+
+                            $("#pestaña-credenciales").css("display", "initial");
+                            //debemos mostrar el boton eliminar usuario
+
+                            if (data.Desvinculado == false) {
+                                if (data.Editar == false) {
+                                    $('#PermisoID').attr("disabled", true);
+                                }
+                                else {
+                                    $('#PermisoID').attr("disabled", false);
+                                }
+                                if (data.Eliminar == true) {
+                                    //MOSTRAR BOTON ELIMINAR
+                                    $('#btn-agregarusuario-Eliminar').removeClass('ocultarCarga');
+                                    $('#btn-agregarusuario-Vincular').addClass('ocultarCarga');
+                                }
+
+                                $('#email-usuario').removeClass('bordeRojoImporte');
+                                $('#email-usuario').removeClass('importeRojo');
+
+                                $('#PermisoID').removeClass('bordeRojoImporte');
+                                $('#PermisoID').removeClass('importeRojo');
+                            }
+                            else {
+                                //MOSTRAR BOTON VINCULAR
+                                $('#email-usuario').addClass('bordeRojoImporte');
+                                $('#email-usuario').addClass('importeRojo');
+                                $('#PermisoID').attr("disabled", true);
+                                $('#PermisoID').addClass('bordeRojoImporte');
+                                $('#PermisoID').addClass('importeRojo');
+                                $('#btn-agregarusuario-Eliminar').addClass('ocultarCarga');
+                                $('#btn-agregarusuario-Vincular').removeClass('ocultarCarga');
+                            }
+
+                            $('#longitud-minima').addClass('ocultarCarga');
+
+                            $('#btn-agregarusuario-guardar').addClass('ocultarCarga');
+                        }
+                    }
+                    if (data.Resultado == 1) {
+                        $('#error-email').removeClass('ocultarCarga');
+                        $('#error-email').append("*Formato de Email no válido.");
+                    }
+                    if (data.Resultado == 2) {
+                        $('#error-email').removeClass('ocultarCarga');
+                        $('#error-email').append("*El Email ingresado ya se encuentra relacionado con otra persona de esta Empresa.");
+                    }
+                    if (data.Resultado == 3) {
+                        $('#error-email').removeClass('ocultarCarga');
+                        $('#error-email').append("*El Email ingresado ya existe.");
+                    }
+                    if (data.Resultado == 4) {
+                        $('#error-email').removeClass('ocultarCarga');
+                        $('#error-email').append("*El Email ingresado no existe.");
+                    }
+                    if (data.Resultado == 5) {
+                        $('#error-email').removeClass('ocultarCarga');
+                        $('#error-email').append("*Su plan ha llegado al límite de Usuarios.");
+                    }
+                    setTimeout("detectarCarga();", 500);
+                }
+            });
+        }
+    //fin datos usuario
+
+    //Credenciales google calendar
+    $('#btn-agregarcredencialescalendar-guardar').click(function () {
+
+        var CodigoCalendario = $('#codigo-calendario').val();
+        var Sincronizar = $('#sincronizar-calendario').val();
+
+        $('#error-codigoCalendario').empty();
+
+        if (CodigoCalendario == "") {
+            EliminarCredencialesGoogle();
+            return false;
+        }
+        if (CodigoCalendario != "") {
+            cargarCredencialesGoogle(CodigoCalendario, Sincronizar);
+        }
+    });
+
+    function cargarCredencialesGoogle(CodigoCalendario, Sincronizar) {
+        MostrarCarga();
+
+         $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GuardarCredencialesGoogle")',
+                        data: { CodigoCalendario: CodigoCalendario, Sincronizar: Sincronizar, PersonaID: 0},
+                        success: function (data) {
+                            if (data.Resultado == 0) {
+                                $('#codigo-calendario').val(data.CodigoCalendario);
+
+                                if (data.EstadoSincronizacion == true) {
+                                    $("#sincronizar-calendario option[value=" + 1 + "]").attr("selected", true);
+                                }
+                                if (data.EstadoSincronizacion == false) {
+                                    $("#sincronizar-calendario option[value=" + 0 + "]").attr("selected", true);
+                                }
+                            }
+                            if (data.Resultado == 1) {
+                                $('#error-codigoCalendario').append("*El Código del Calendario ya existe.");
+                            }
+                            setTimeout("detectarCarga();", 500);
+                        }
+                    });
+    }
+
+     function EliminarCredencialesGoogle() {
+          MostrarCarga();
+          $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("EliminarCredencialesGoogle")',
+                    data: { PersonaID: 0},
+                    success: function (data) {
+                    setTimeout("detectarCarga();", 500);
+                }
+           });
+        }
+
+    //Fin Credenciales google calendar
+
+
+        $('#agregar-datosprofesional').click(function () {
+            $('#div-btn-datosprofesional').addClass('ocultarCarga');
+            $('#form-agregar-datosprofesional').removeClass('ocultarCarga');
+        });
+
+        function MostrarDatosProfesional() {
+            var EstudioJuridico = $('#EstudioJuridico').val();
+            var Matricula = $('#Matricula').val();
+            if (EstudioJuridico != "" || Matricula != "") {
+                $('#div-btn-datosprofesional').addClass('ocultarCarga');
+                $('#form-agregar-datosprofesional').removeClass('ocultarCarga');
+            }
+        }
+
+
+    function quitarContacto(registroID) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("QuitarContacto")',
+            data: { id: registroID },
+            success: function (data) {
+
+                if (data != null) {
+                    indice = 0;
+                    agregarContacto(indice);
+                    return false;
+                }
+            },
+            error: function (result) {
+                alert("No se pudo eliminar.");
+            }
+        });
+    };
+
+    window.onload = agregarContacto(indice = 0);
+    //window.onload = agregarDatosJuridicos();
+    window.onload = MostrarDatosProfesional();
+    window.onload = cargarDatosUsuarios(Email = "", PermisoID = 0, Contraseña = "", 0);
+    window.onload = cargarCredencialesGoogle(Email = "", CodigoAplicacion = "", CodigoCliente = "", CodigoCalendario = "", Sincronizar = 0);
+
+    //agragado 20/02/2018
+
+    function CancelarRegistrarPersona() {
+        //activar boton de nuevo y borrar la pestaña creada
+        $('#nueva-persona').removeClass('ocultarCarga');
+        $('#pestaña-nuevapersona').remove();
+        $('#formulario-nuevapersona').remove();
+
+        var cantidadPestañas = $("#Pestañas li").length;
+        if (cantidadPestañas => 1){
+            $("#Pestañas li").first().addClass('active');
+            $("#cuerpo-pestaña div").first().addClass('active');
+        }
+
+    };
+
+    function GuardarRegistrarPersona() {
+        var razonSocial = $('#RazonSocialRegistrar').val();
+        var cargo = $('#CargoOcupaRegistrar').val();
+        var telefono = $('#TelefonoRegistrar').val();
+        var email = $('#EmailRegistrar').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("RegistrarPersonaContacto")',
+            data: { razonSocial: razonSocial, cargo: cargo, telefono: telefono, email: email },
+            success: function (id) {
+                    //id de la persona registrada
+                    $('#CabeceraPersonaId').val(id);
+                    agregarContacto(1);
+                    return false;
+            },
+            error: function (result) {
+                alert("No se pudo registrar.");
+            }
+        });
+
+    };
+
+    $("#nueva-persona").click(function () {
+
+        if ($("#Pestañas li").hasClass('active')) {
+            //si ya existen al menos una pestaña existente
+            //debemos sacarle la propiedad active a todos los list existentes
+            $("#Pestañas li").removeClass('active');
+            $("#cuerpo-pestaña div").removeClass('active');
+        }
+
+        $('#nueva-persona').addClass('ocultarCarga');
+
+        $("#Pestañas").append(
+            "<li id='pestaña-nuevapersona' class='active'>" +
+            "<a data-toggle='tab' href='#formulario-nuevapersona' aria-expanded='true'>Nuevo</a>" +
+            "</li>"
+        );
+
+        $("#cuerpo-pestaña").append(
+            "<div class='tab-pane active' id='formulario-nuevapersona'>" +
+
+            "<div class='text-right' style='margin-top:5px;'>" +
+
+            "</div>" +
+
+            "<div class='form-group'>" +
+            "<div class='col-md-12'>" +
+            "<label class='control-label'>Nombre</label>" +
+            "<input type='text' id='RazonSocialRegistrar' class='form-control' />" +
+            "</div>" +
+
+            "</div>" +
+
+            "<div class='form-group'>" +
+            "<div class='col-md-6'>" +
+            "<label class='control-label'>Teléfono</label>" +
+            "<input type='text' id='TelefonoRegistrar' class='form-control' />" +
+            "</div>" +
+            "<div class='col-md-6'>" +
+            "<label class='control-label'>Cargo que Ocupa</label>" +
+            "<input type='text' id='CargoOcupaRegistrar' class='form-control' />" +
+            "</div>" +
+            "</div>" +
+
+            "<div class='form-group'>" +
+            "<div class='col-md-12'>" +
+            "<label class='control-label'>Email</label>" +
+            "<input type='text' id='EmailRegistrar' class='form-control' />" +
+            "</div>" +
+            "</div>" +
+
+            "<div class='text-center' style='margin-top:15px'>" +
+            "<a class='btn-ovalo' onclick='CancelarRegistrarPersona()' title='Cancelar'>Cancelar</a>" +
+            "<a style='margin-left:5px' onclick='GuardarRegistrarPersona()' class='btn-ovalo' id='guardar-nuevapersona' title='Guardar Nueva Persona'>Guardar</a>" +
+            "</div>" +
+
+            "</div>"
+        );
+
+    });
+    //agragado 20/02/2018
+
+    function agregarContacto(indice) {
+        //MostrarCarga();
+        var personaID = $('#CabeceraPersonaId').val();
+
+        if (personaID == ""){
+            personaID = 0;
+        }
+
+        if (indice == 0){
+            personaID = 0;
+        }
+
+        $("#Pestañas").empty();
+        $("#cuerpo-pestaña").empty();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GuardarContacto")',
+            data: {
+                id: personaID, PersonaID : 0
+            },
+            success: function (resultado) {
+                var items = resultado;
+                $("#Persona").val('');
+                $.each(items, function (index, item) {
+
+                    var contactoID = "tab-contacto" + item.ContactoTemporalID;
+
+                    if (item.NroPestaña == 1) {
+                        $("#Pestañas").append(
+                            "<li class='active'>" +
+                            "<a title='" + item.NombreCompleto + "' class='puntosSuspensivos' data-toggle='tab' href='#" + contactoID + "' aria-expanded='true'>" + item.NombreCompleto + "</a>" +
+                            "</li>"
+                        );
+
+                        $("#cuerpo-pestaña").append(
+                            "<div class='tab-pane active' id='" + contactoID + "'>" +
+
+                            "<div class='text-right' style='margin-top:5px;'>" +
+
+                            "</div>" +
+
+                            "<div class='form-group'>" +
+                            "<div class='col-md-12'>" +
+                            "<label class='control-label'>Nombre</label>" +
+                            "<input type='text' class='form-control' value='" + item.NombreCompleto + "' readonly/>" +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div class='form-group'>" +
+                            "<div class='col-md-6'>" +
+                            "<label class='control-label'>Teléfono</label>" +
+                            "<input type='text' class='form-control' value='" + item.Telefono + "' readonly/>" +
+                            "</div>" +
+                            "<div class='col-md-6'>" +
+                            "<label class='control-label'>Cargo que Ocupa</label>" +
+                            "<input type='text' class='form-control' value='" + item.Cargo + "' readonly/>" +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div class='form-group'>" +
+                            "<div class='col-md-12'>" +
+                            "<label class='control-label'>Email</label>" +
+                            "<input type='text' class='form-control' value='" + item.Email + "' readonly/>" +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div class='text-center' style='margin-top:15px'>" +
+                            "<a class='btn-ovalo' title='Ver detalle de la persona' target='mainframe' href='../../Personas/Edit/" + item.PersonaContactoID + "'>Ver mas</a>" +
+                            "<a class='btn-ovalo' style='margin-left:5px' title='Quitar contacto' onclick='quitarContacto(" + item.ContactoTemporalID + ")' id='btn-quitarContacto'>Quitar</a>" +
+                            "</div>" +
+
+                            "</div>"
+                        );
+
+                    }
+                    else {
+                        $("#Pestañas").append(
+                            "<li>" +
+                            "<a title='" + item.NombreCompleto + "' class='puntosSuspensivos' data-toggle='tab' href='#" + contactoID + "' aria-expanded='true'>" + item.NombreCompleto + "</a>" +
+                            "</li>"
+                        );
+
+                        $("#cuerpo-pestaña").append(
+                            "<div class='tab-pane' id='" + contactoID + "'>" +
+
+                            "<div class='text-right' style='margin-top:5px;'>" +
+
+                            "</div>" +
+
+                            "<div class='form-group'>" +
+                            "<div class='col-md-12'>" +
+                            "<label class='control-label'>Nombre</label>" +
+                            "<input type='text' class='form-control' value='" + item.NombreCompleto + "' readonly/>" +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div class='form-group'>" +
+                            "<div class='col-md-6'>" +
+                            "<label class='control-label'>Teléfono</label>" +
+                            "<input type='text' class='form-control' value='" + item.Telefono + "' readonly/>" +
+                            "</div>" +
+                            "<div class='col-md-6'>" +
+                            "<label class='control-label'>Cargo que Ocupa</label>" +
+                            "<input type='text' class='form-control' value='" + item.Cargo + "' readonly/>" +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div class='form-group'>" +
+                            "<div class='col-md-12'>" +
+                            "<label class='control-label'>Email</label>" +
+                            "<input type='text' class='form-control' value='" + item.Email + "' readonly/>" +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div class='text-center' style='margin-top:15px'>" +
+                            "<a class='btn-ovalo' title='Ver detalle de la persona' target='mainframe' href='../../Personas/Edit/" + item.PersonaContactoID + "'>Ver mas</a>" +
+                            "<a class='btn-ovalo' style='margin-left:5px' title='Quitar contacto' onclick='quitarContacto(" + item.ContactoTemporalID + ")' id='btn-quitarContacto'>Quitar</a>" +
+                            "</div>" +
+
+                            "</div>"
+                        );
+                    }
+
+                });
+
+                $('#nueva-persona').removeClass('ocultarCarga');
+                setTimeout("detectarCarga();", 500);
+
+            },
+            error: function (result) {
+                alert("Ingrese un nombre válido");
+            }
+        });
+
+    };
+
+
+        $("#LocalidadNombre").autocomplete({
+            dataType: 'JSON',
+            source: function (request, response) {
+                jQuery.ajax({
+                    url: '/Localidades/BuscarLocalidad',
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        nombre: request.term
+                    },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                id: item.LocalidadID,
+                                value: item.NombreVista
+                            }
+                        }))
+                    }
+                })
+            },
+            select: function (e, ui) {
+                $("#LocalidadID").val(ui.item.id);
+            }
+        });
+
+        window.onload = SeleccionaTipoDocumento();
+
+        $("#TipoContribuyenteID").change(function () {
+            BuscarTipoDocumento();
+        });
+
+        function BuscarTipoDocumento() {
+            //Se limpia el contenido del dropdownlist
+            $("#TipoDocumentoID").empty();
+                    $.ajax({
+                        type: 'POST',
+                        //Llamado al metodo GetDepartByGeren en el controlador
+                        url: '@Url.Action("BuscarTipoDocumento")',
+                        dataType: 'json',
+                        //Parametros que se envian al metodo del controlador
+                        data: { id: $("#TipoContribuyenteID").val() },
+                        //En caso de resultado exitoso
+                        success: function (TipoDocumentos) {
+                            if (TipoDocumentos.length == 0) {
+                                $("#TipoDocumentoID").append('<option value="0">[No hay Tipo de documentos registrados]</option>');
+                            }
+                            else {
+                                $.each(TipoDocumentos, function (i, TipoDocumento) {
+                                    $("#TipoDocumentoID").append('<option value="' + TipoDocumento.Value + '">' +
+                                        TipoDocumento.Text + '</option>');
+                                });
+                                SeleccionaTipoDocumento();
+                            }
+                        },
+                        ////Mensaje de error en caso de fallo
+                        error: function (ex) {
+                            alert('Fallo la busqueda de Tipo de documentos.' + ex);
+                        }
+                    });
+                    return false;
+        };
+
+        $("#TipoDocumentoID").change(function () {
+            SeleccionaTipoDocumento();
+        });
+
+        function SeleccionaTipoDocumento() {
+            //BLOQUEAR NROTIPODOCUMENTO O NO
+            var tipoDocumentoID = $("#TipoDocumentoID").val();
+            if (tipoDocumentoID == 99){
+                $("#NroTipoDocumento").attr('disabled', 'true');
+            }
+            else {
+                $("#NroTipoDocumento").removeAttr('disabled', 'true');
+                DefinirMascara();
+            }
+        };
+
+        function DefinirMascara() {
+            var tipoDocumentoID = $("#TipoDocumentoID").val();
+            if (tipoDocumentoID == 96) {
+                // Definimos las mascaras para cada input
+                $("#NroTipoDocumento").mask("99999999");
+            }
+            else {
+                // Definimos las mascaras para cada input
+                $("#NroTipoDocumento").mask("99-99999999-9");
+            }
+        }
+
+    </script>
+}
+
+

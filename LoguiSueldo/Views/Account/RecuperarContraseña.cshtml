@@ -1,0 +1,44 @@
+﻿@model LoguiContable.Models.ForgotPasswordViewModel
+@{
+    ViewBag.Title = "¿Olvidó la contraseña?";
+}
+
+@using (Html.BeginForm("RecuperarContraseña", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="margenLoguin">
+        <div class="cuadro-recuperarContraseña">
+
+            <img style="margin-top:-10px" class="profile-img" src="~/logoLoguiGestion.png" />
+
+            <div class="form-signin">
+                <div style="padding-bottom:5px">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", required = "required" })
+                </div>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="text-danger">@ViewBag.Error</div>
+                }
+
+                <div style="margin-left:-25px">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                </div>
+
+                <div style="padding-bottom:10px">
+                    Luego de ingresar el email, deberá comprobar su correo electrónico para visualizar su nueva contraseña.
+                </div>
+
+                <input style="margin-top:10px" onclick="this.onclick = function(){return false;}" type="submit" value="Recuperar Contraseña" class="btn btn-lg btn-success btn-block" />
+
+                <span class="clearfix"></span>
+
+            </div>
+            <a href="~/Personas/Index" class="text-center new-account">Volver</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
