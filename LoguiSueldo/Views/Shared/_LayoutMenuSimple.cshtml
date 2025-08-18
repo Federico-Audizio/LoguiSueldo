@@ -1,28 +1,24 @@
-﻿@using Microsoft.AspNet.Identity
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-    @*<link href="~/Menu/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />*@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="~/ICOWEB.ico" />
+    <link rel="shortcut icon" href="~/favicon.ico" />
     <title>Logui Contable</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    @Styles.Render("~/Menu/css")
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Scripts/jquery-ui/jquery-ui.min-1.0.css")
-
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!-- Agrega aquí otros CSS que necesites -->
 </head>
 <body class="hold-transition skin-purple sidebar-mini fixed" style="background-color: #ecf0f5;">
     <div>
-        @if (Request.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated)
         {
             <div>
-                @Html.Partial("_Header")
+                @await Html.PartialAsync("_Header")
                 <div class="container margenDeCelu">
 
                     <div id="carga" class="cargando ocultar">
@@ -47,10 +43,11 @@
                     <div id="vista-render">
                         @RenderBody()
 
-                        <div title="Espere..." id="btn-espere" class="btnPosicion2 ocultar"> <i style="padding-top:3px" class="glyphicon glyphicon-hourglass"></i> </div>
+                        <div title="Espere..." id="btn-espere" class="btnPosicion2 ocultar">
+                            <i style="padding-top:3px" class="glyphicon glyphicon-hourglass"></i>
+                        </div>
 
-                        <!--Logui Soft Acerca De-->
-                        @Html.Partial("_AcercaDe")
+                        @await Html.PartialAsync("_AcercaDe")
                     </div>
 
                     <script>
@@ -78,8 +75,11 @@
         }
     </div>
 
-    @Scripts.Render("~/Bundles/js")
-    @Scripts.Render("~/Menu/js")
+    <!-- JS -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Agrega aquí otros JS que necesites -->
     @RenderSection("scripts", required: false)
 
     @* js usados para el almanaque y busquedas con json *@
