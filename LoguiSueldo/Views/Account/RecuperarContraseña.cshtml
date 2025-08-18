@@ -1,4 +1,4 @@
-﻿@model LoguiContable.Models.ForgotPasswordViewModel
+﻿@model LoguiSueldo.Models.ForgotPasswordViewModel
 @{
     ViewBag.Title = "¿Olvidó la contraseña?";
 }
@@ -9,7 +9,7 @@
     <div class="margenLoguin">
         <div class="cuadro-recuperarContraseña">
 
-            <img style="margin-top:-10px" class="profile-img" src="~/logoLoguiGestion.png" />
+            <img style="margin-top:-10px" class="profile-img" src="~/img/logoLoguiGestion.png" />
 
             <div class="form-signin">
                 <div style="padding-bottom:5px">
@@ -40,5 +40,6 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
 }

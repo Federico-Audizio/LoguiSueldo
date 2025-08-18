@@ -1,14 +1,14 @@
-﻿@using LoguiContable.Models
-@model LoginViewModel
+﻿@model LoguiSueldo.Models.LoginViewModel
 
 @{
-    ViewBag.Title = "Iniciar sesión";
-    Layout = "~/Views/Shared/_Login.cshtml";
+    ViewData["Title"] = "Iniciar sesión";
+    // si tu layout está en Views/Shared/_Login.cshtml:
+    Layout = "_Login";
 }
 
 <section class="login-container">
     <div class="about">
-        <img src="~/Content/img/logui_soft.png" class="logo" alt="Logo de Logui Soft" title="Conocé más" />
+        <img src="~/img/logui_soft.png" class="logo" alt="Logo de Logui Soft" title="Conocé más" asp-append-version="true" />
         <div class="social-network">
             <a href="http://www.loguisoft.com" target="_blank" title="Visitar Sitio web www.loguisoft.com">
                 <i class="fa fa-globe logo" aria-hidden="true"></i>
@@ -26,120 +26,132 @@
     </div>
 
     <div id="login" class="login">
-        <img class="img-login" src="~/Logo Logui Contable.png" />
+        <img class="img-login" src="~/img/logo-logui-contable.png" asp-append-version="true" />
 
-        @*@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form login-form", role = "form" }))*@
-        <form class="form login-form">
-            @*@Html.AntiForgeryToken()*@
+        <!-- En Core usamos Tag Helpers. El antiforgery se agrega solo con el form tag helper -->
+        <form asp-controller="Account"
+              asp-action="Login"
+              asp-route-returnUrl="@(ViewData["ReturnUrl"] as string)"
+              method="post"
+              class="form login-form">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-input">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", autofocus = "autofocus" })
-                <i id="email-invalido-login" class="fa fa-exclamation-circle requeridoLogin ocultar" data-toggle="tooltip" data-placement="bottom" title="El email ingresado no es válido." aria-hidden="true"></i>
+                <input asp-for="Email" class="form-control" placeholder="Email" autofocus />
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <i id="email-invalido-login" class="fa fa-exclamation-circle requeridoLogin ocultar"
+                   data-toggle="tooltip" data-placement="bottom" title="El email ingresado no es válido." aria-hidden="true"></i>
             </div>
 
             <div class="form-input">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
-                <i id="password-invalido" class="fa fa-exclamation-circle requeridoLogin ocultar" data-toggle="tooltip" data-placement="bottom" title="La contraseña ingresada no es válida." aria-hidden="true"></i>
+                <input asp-for="Password" class="form-control" placeholder="Contraseña" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <i id="password-invalido" class="fa fa-exclamation-circle requeridoLogin ocultar"
+                   data-toggle="tooltip" data-placement="bottom" title="La contraseña ingresada no es válida." aria-hidden="true"></i>
             </div>
 
             <div class="rememberAndResetPassword">
                 <label class="remember-me">
-                    <input type="checkbox" name="RememberMe" id="RememberMe" value="RememberMe"> ¿Recordarme?
+                    <input asp-for="RememberMe" /> ¿Recordarme?
                     <i></i>
                 </label>
-                <a href="~/Account/RecuperarContraseña" class="text-center new-account text-bold olvidoContraseña" title="Recuperar Contraseña">¿Se te olvidó tu contraseña?</a>
+
+                <!-- Evitá la ñ en el nombre del Action. Sugerencia: RecuperarContrasena -->
+                <a asp-controller="Account"
+                   asp-action="RecuperarContrasena"
+                   class="text-center new-account text-bold olvidoContraseña"
+                   title="Recuperar Contraseña">¿Se te olvidó tu contraseña?</a>
             </div>
 
-            <input type="submit" value="Ingresar" class="btn btn-lg btn-block btn-ingresar" />
+            <button type="submit" class="btn btn-lg btn-block btn-ingresar">Ingresar</button>
 
             <div class="loader ocultar">
-                <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                     width="50" height="50" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
-                <path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
-                        s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
-                        c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
+                <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                     width="50" height="50" viewBox="0 0 40 40" xml:space="preserve">
+                <path opacity="0.2" fill="#000"
+                      d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                          s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+                          c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
                 <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
-                        C22.32,8.481,24.301,9.057,26.013,10.047z">
-                <animateTransform attributeType="xml"
-                                  attributeName="transform"
-                                  type="rotate"
-                                  from="0 20 20"
-                                  to="360 20 20"
-                                  dur="0.5s"
-                                  repeatCount="indefinite" />
+                          C22.32,8.481,24.301,9.057,26.013,10.047z">
+                <animateTransform attributeType="xml" attributeName="transform" type="rotate"
+                                  from="0 20 20" to="360 20 20" dur="0.5s" repeatCount="indefinite" />
                     </path>
                 </svg>
             </div>
 
             <p class="login-invalid ocultar">Inicio de Sesión no válido.</p>
-
-        </form>
+		</form>d="RememberMe" value="
 
         <div class="register">
             <span>¿No tienes cuenta?</span>
-            <a onclick="UsersRegister()" class="btn-register" title="Rigistrarse">
+            <a onclick="UsersRegister()" class="btn-register" title="Registrarse">
                 Crear cuenta
             </a>
         </div>
     </div>
 
-
     <div id="register" class="login ocultar">
-        <img class="img-login img-login-registrar" src="~/logoLoguiGestion.png" />
+        <img class="img-login img-login-registrar" src="~/img/logoLoguiGestion.png" asp-append-version="true" />
 
         <div class="form">
             <div class="form-input">
                 <input type="text" id="NombreCompleto" name="NombreCompleto" class="form-control" placeholder="Nombre Completo" />
-                <i id="nombre-requerido" class="fa fa-exclamation-circle requeridoLogin ocultar" data-toggle="tooltip" data-placement="bottom" title="Debe completar con su Nombre Completo." aria-hidden="true"></i>
+                <i id="nombre-requerido" class="fa fa-exclamation-circle requeridoLogin ocultar"
+                   data-toggle="tooltip" data-placement="bottom" title="Debe completar con su Nombre Completo." aria-hidden="true"></i>
             </div>
 
             <div class="form-input">
                 <input type="text" id="Telefono" name="Telefono" class="form-control" placeholder="Telefono" />
-                <i id="telefono-requerido" class="fa fa-exclamation-circle requeridoLogin ocultar" data-toggle="tooltip" data-placement="bottom" title="Debe completar con su Telefono." aria-hidden="true"></i>
+                <i id="telefono-requerido" class="fa fa-exclamation-circle requeridoLogin ocultar"
+                   data-toggle="tooltip" data-placement="bottom" title="Debe completar con su Telefono." aria-hidden="true"></i>
             </div>
 
             <div class="form-input">
                 <input type="tel" id="Documento" name="Documento" class="form-control" placeholder="Nro. Documento" />
-                <i id="documento-requerido" class="fa fa-exclamation-circle requeridoLogin ocultar" data-toggle="tooltip" data-placement="bottom" title="Debe completar con su Nro. de Documento." aria-hidden="true"></i>
-                <div id="documento-existente" class="dato-incorrecto requeridoLogin ocultar">Ya existe un cliente registrado con el mismo Documento.</div>
+                <i id="documento-requerido" class="fa fa-exclamation-circle requeridoLogin ocultar"
+                   data-toggle="tooltip" data-placement="bottom" title="Debe completar con su Nro. de Documento." aria-hidden="true"></i>
+                <div id="documento-existente" class="dato-incorrecto requeridoLogin ocultar">
+                    Ya existe un cliente registrado con el mismo Documento.
+                </div>
             </div>
 
             <div class="form-input">
                 <input type="email" id="EmailRegistrar" name="Email" class="form-control" autocomplete="off" placeholder="Correo Electrónico" />
-                <i id="email-invalido" class="fa fa-exclamation-circle requeridoLogin ocultar" data-toggle="tooltip" data-placement="bottom" title="El email ingresado no es válido." aria-hidden="true"></i>
+                <i id="email-invalido" class="fa fa-exclamation-circle requeridoLogin ocultar"
+                   data-toggle="tooltip" data-placement="bottom" title="El email ingresado no es válido." aria-hidden="true"></i>
                 <div id="email-existente" class="dato-incorrecto requeridoLogin ocultar">El email ingresado ya existe.</div>
             </div>
 
             <div class="form-input">
                 <input type="password" id="PasswordRegistrar" name="Password" class="form-control" placeholder="Contraseña" />
-                <i id="contraseña-invalida" class="fa fa-exclamation-circle requeridoLogin ocultar" data-toggle="tooltip" data-placement="bottom" title="La contraseña debe tener mínimo 6 dígitos." aria-hidden="true"></i>
+                <i id="contraseña-invalida" class="fa fa-exclamation-circle requeridoLogin ocultar"
+                   data-toggle="tooltip" data-placement="bottom" title="La contraseña debe tener mínimo 6 dígitos." aria-hidden="true"></i>
             </div>
 
             <div class="form-input">
                 <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="Confirmar Contraseña" />
-                <i id="contraseña-diferente" class="fa fa-exclamation-circle requeridoLogin ocultar" data-toggle="tooltip" data-placement="bottom" title="Las contraseñas no coinciden." aria-hidden="true"></i>
+                <i id="contraseña-diferente" class="fa fa-exclamation-circle requeridoLogin ocultar"
+                   data-toggle="tooltip" data-placement="bottom" title="Las contraseñas no coinciden." aria-hidden="true"></i>
             </div>
 
             <div>
-                <button title="Registrarse" id="btn-registrarse" onclick="UsuarioRegister(event);" class="btn btn-lg btn-block btn-ingresar">Registrarse</button>
-
-                @*<div title="Espere..." id="btn-espere" class="btnPosicion2 ocultar"> <i style="padding-top:3px" class="glyphicon glyphicon-hourglass"></i> </div>*@
+                <button title="Registrarse" id="btn-registrarse" onclick="UsuarioRegister(event);" class="btn btn-lg btn-block btn-ingresar">
+                    Registrarse
+                </button>
 
                 <div class="loader ocultar">
-                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                         width="50" height="50" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
-                    <path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
-                            s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
-                            c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
+                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                         width="50" height="50" viewBox="0 0 40 40" xml:space="preserve">
+                    <path opacity="0.2" fill="#000"
+                          d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                              s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+                              c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
                     <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
-                            C22.32,8.481,24.301,9.057,26.013,10.047z">
-                    <animateTransform attributeType="xml"
-                                      attributeName="transform"
-                                      type="rotate"
-                                      from="0 20 20"
-                                      to="360 20 20"
-                                      dur="0.5s"
-                                      repeatCount="indefinite" />
+                              C22.32,8.481,24.301,9.057,26.013,10.047z">
+                    <animateTransform attributeType="xml" attributeName="transform" type="rotate"
+                                      from="0 20 20" to="360 20 20" dur="0.5s" repeatCount="indefinite" />
                         </path>
                     </svg>
                 </div>
@@ -148,86 +160,60 @@
 
         <div class="register">
             <span>Si ya tienes cuenta</span>
-            <a onclick="UsersLogin()" class="btn-register" title="Rigistrarse">
-                Iniciar Sesion
+            <a onclick="UsersLogin()" class="btn-register" title="Iniciar Sesión">
+                Iniciar Sesión
             </a>
         </div>
     </div>
-
 
     <div class="images-container">
         <div id="carousel-example-generic" class="carousel slide height-100" data-ride="carousel" data-interval="10000" data-pause="null">
             <div class="carousel-inner img-container height-100" role="listbox">
                 <div class="item active height-100">
-                    <img src="~/Content/img/login_register/LoguiContable1.jpg" class="img" alt="...">
+                    <img src="~/img/login_register/LoguiContable1.jpg" class="img" alt="...">
                     <div class="carousel-caption img-caption">
-                        <h1>
-                            Gestión de Asientos Diarios
-                        </h1>
-                        <p>
-                            Gestiona tus registros contables de manera eficiente. Registra tus asientos diarios de forma rápida y precisa. Mantén un control detallado de las transacciones de tu empresa y asegura la precisión de tu contabilidad.
-                        </p>
+                        <h1>Gestión de Asientos Diarios</h1>
+                        <p>Gestiona tus registros contables de manera eficiente…</p>
                     </div>
                 </div>
                 <div class="item height-100">
-                    <img src="~/Content/img/login_register/LoguiContable2.jpg" class="img" alt="...">
+                    <img src="~/img/login_register/LoguiContable2.jpg" class="img" alt="...">
                     <div class="carousel-caption img-caption">
-                        <h1>
-                            Detalles de Cuentas
-                        </h1>
-                        <p>
-                            Examina los aspectos específicos y detallados de tus cuentas contables. Obtén una visión clara y completa de la salud financiera de tu empresa al analizar los detalles de cada cuenta.
-                        </p>
+                        <h1>Detalles de Cuentas</h1>
+                        <p>Obtén una visión clara y completa…</p>
                     </div>
                 </div>
                 <div class="item height-100">
-                    <img src="~/Content/img/login_register/LoguiContable3.jpg" class="img" alt="...">
+                    <img src="~/img/login_register/LoguiContable3.jpg" class="img" alt="...">
                     <div class="carousel-caption img-caption">
-                        <h1>
-                            Balance de Sumas y Saldos
-                        </h1>
-                        <p>
-                            Analiza en detalle el balance de sumas y saldos de tus cuentas contables, y garantizá un control efectivo de tus recursos.
-                        </p>
+                        <h1>Balance de Sumas y Saldos</h1>
+                        <p>Analiza en detalle el balance…</p>
                     </div>
                 </div>
                 <div class="item height-100">
-                    <img src="~/Content/img/login_register/LoguiContable4.jpg" class="img" alt="...">
+                    <img src="~/img/login_register/LoguiContable4.jpg" class="img" alt="...">
                     <div class="carousel-caption img-caption">
-                        <h1>
-                            Análisis Preliminar del Balance Contable
-                        </h1>
-                        <p>
-                            Obtén una visión detallada de tu empresa a través del prebalance contable. Permitiendo mejorar la planificación financiera y tomar decisiones estratégicas para optimizar la eficiencia y productividad de tu empresa.
-                        </p>
+                        <h1>Análisis Preliminar del Balance</h1>
+                        <p>Obtén una visión detallada…</p>
                     </div>
                 </div>
                 <div class="item active height-100">
-                    <img src="~/Content/img/login_register/LoguiContable5.jpg" class="img" alt="...">
+                    <img src="~/img/login_register/LoguiContable5.jpg" class="img" alt="...">
                     <div class="carousel-caption img-caption">
-                        <h1>
-                            Gestión de Facturas de Compra y de Venta
-                        </h1>
-                        <p>
-                            Simplifica y optimiza el proceso de registro y administración de facturas de compra y venta.
-                        </p>
+                        <h1>Gestión de Facturas</h1>
+                        <p>Simplifica y optimiza el proceso…</p>
                     </div>
                 </div>
                 <div class="item active height-100">
-                    <img src="~/Content/img/login_register/LoguiContable6.jpg" class="img" alt="...">
+                    <img src="~/img/login_register/LoguiContable6.jpg" class="img" alt="...">
                     <div class="carousel-caption img-caption">
-                        <h1>
-                            Resultados de IVA Compra y Venta
-                        </h1>
-                        <p>
-                            Obtén los resultados de IVA de compra y venta de forma clara y precisa. Analiza los totales por provincia y actividad para una mejor comprensión de la situación financiera de tu empresa.
-                        </p>
+                        <h1>Resultados de IVA</h1>
+                        <p>Obtén los resultados de IVA de compra y venta…</p>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
 </section>
 
-<script src="~/Scripts/Login/UserLoginRegister.js"></script>
+<script src="~/js/Login/UserLoginRegister.js" asp-append-version="true"></script>

@@ -1,0 +1,164 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    @*<link href="~/Menu/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />*@
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="~/ICOWEB.ico" />
+    <title>Logui Contable</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @Styles.Render("~/Menu/css")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Scripts/jquery-ui/jquery-ui.min-1.0.css")
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-purple sidebar-mini fixed" style="background-color: #ecf0f5;">
+    <div>
+        @if (Request.IsAuthenticated)
+        {
+            <div>
+                @Html.Partial("_Header")
+                <div class="container margenDeCelu">
+
+                    <div id="carga" class="cargando ocultar">
+                        <div class="preloader">
+                            <div class="sk-spinner sk-spinner-circle">
+                                <div class="sk-circle1 sk-circle"></div>
+                                <div class="sk-circle2 sk-circle"></div>
+                                <div class="sk-circle3 sk-circle"></div>
+                                <div class="sk-circle4 sk-circle"></div>
+                                <div class="sk-circle5 sk-circle"></div>
+                                <div class="sk-circle6 sk-circle"></div>
+                                <div class="sk-circle7 sk-circle"></div>
+                                <div class="sk-circle8 sk-circle"></div>
+                                <div class="sk-circle9 sk-circle"></div>
+                                <div class="sk-circle10 sk-circle"></div>
+                                <div class="sk-circle11 sk-circle"></div>
+                                <div class="sk-circle12 sk-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="vista-render">
+                        @RenderBody()
+
+                        <div title="Espere..." id="btn-espere" class="btnPosicion2 ocultar"> <i style="padding-top:3px" class="glyphicon glyphicon-hourglass"></i> </div>
+
+                        <!--Logui Soft Acerca De-->
+                        @Html.Partial("_AcercaDe")
+                    </div>
+
+                    <script>
+                        function MostrarCarga() {
+                            $('#carga').removeClass('ocultar');
+                            $('#vista-render').addClass('ocultar');
+                        }
+
+                        //oculta simbolo de cargar y muestra contenido
+                        function detectarCarga() {
+                            $('#carga').addClass('ocultar');
+                            $('#vista-render').removeClass('ocultar');
+                            $('#vista-usuario').removeClass('ocultar');
+                        }
+                    </script>
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <section class="container">
+                @RenderBody()
+            </section>
+        }
+    </div>
+
+    @Scripts.Render("~/Bundles/js")
+    @Scripts.Render("~/Menu/js")
+    @RenderSection("scripts", required: false)
+
+    @* js usados para el almanaque y busquedas con json *@
+    <script src="~/Scripts/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery-ui/datepicker-es.js"></script>
+
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+
+    <script>
+        $("#datepicker").datepicker($.datepicker.regional["es"]);
+        $('#datepicker').focus(function () {
+            this.blur();
+        });
+
+        $("#DiasEspera").datepicker($.datepicker.regional["es"]);
+        $('#DiasEspera').focus(function () {
+            this.blur();
+        });
+
+        $("#FechaInicio").datepicker($.datepicker.regional["es"]);
+
+
+        $("#DatePicker1").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker1').focus(function () {
+            this.blur();
+        });
+
+        $("#DatePicker2").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker2').focus(function () {
+            this.blur();
+        });
+
+        $("#DatePicker3").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker3').focus(function () {
+            this.blur();
+        });
+
+        $("#DatePicker4").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker4').focus(function () {
+            this.blur();
+        });
+
+        function OcultarSubmit() {
+            $("#btn-submit").addClass("ocultar");
+            $("#btn-espere").removeClass("ocultar");
+            setTimeout("MostrarSubmit();", 5000);
+        }
+
+        function MostrarSubmit() {
+            $("#btn-espere").addClass("ocultar");
+            $("#btn-submit").removeClass("ocultar");
+        }
+
+        $('a[name=btn-submit]').click(function () {
+            MostrarCarga();
+        });
+    </script>
+
+    <script>
+        function maximo(campo, limite) {
+            if (campo.value.length >= limite) {
+                campo.value = campo.value.substring(0, limite);
+            }
+        }
+    </script>
+
+    <script>
+        function Redirigir(url) {
+            var link = "../../CuentasCorrientes/NuevoMovimiento?url=" + url;
+            location.href = link;
+        }
+    </script>
+
+    <script src="~/Scripts/autosize.js"></script>
+
+    <script>
+        autosize(document.querySelectorAll('textarea'));
+    </script>
+</body>
+</html>

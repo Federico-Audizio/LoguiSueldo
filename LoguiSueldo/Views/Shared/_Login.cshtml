@@ -1,0 +1,66 @@
+﻿
+@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    @*<link href="~/Menu/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />*@
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="~/ICOWEB.ico" />
+    <title>Logui Contable</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link href="~/Scripts/modernizr-2.6.2.js" rel="stylesheet" />
+    <link href="~/Content/Login-1.0.1.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/custom-scrollbar-1.0.0.css" rel="stylesheet" />
+</head>
+<body>
+
+    @RenderBody()
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('.carousel').carousel();
+            $('form.form > .form-control').focus();
+
+            var about = document.querySelector('.login-container .about');
+
+            setTimeout(() => {
+                if (about) {
+                    about.classList.add('show');
+                }
+            }, 1500);
+
+        });
+
+        //Borrrar la cookie que contiene guarda la infomación del usuario.
+        function borrarCookie() {
+            var expiracion = new Date();
+            expiracion.setTime(expiracion.getTime() - 3600);
+            document.cookie = 'userInfo=; expires=' + expiracion.toGMTString() + '; path=/';
+        };
+
+        if (location.pathname === '/Account/Login') {
+            borrarCookie();
+        }
+    </script>
+
+    @if (ViewBag.ModelError == "Intento de inicio de sesión no válido.")
+    {
+        <script>
+            $("#btn-ingresar").removeClass("ocultar");
+            $("#btn-ingresando").addClass("ocultar");
+                    //alert("Intento de inicio de sesión no válido.");
+        </script>
+    }
+</body>
+</html>

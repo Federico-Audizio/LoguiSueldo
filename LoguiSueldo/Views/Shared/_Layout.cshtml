@@ -1,0 +1,397 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @*<link href="~/Menu/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />*@
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="~/ICOWEB.ico" />
+    <title>Logui Sueldo</title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @Styles.Render("~/Menu/css")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Scripts/jquery-ui/jquery-ui.min-1.0.css")
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!--DATEPICKER CON SELECCIÓN DE TIEMPO-->
+    <link href="~/Scripts/DateTimePicker/datetimepicker.css" rel="stylesheet" />
+    <!--DATEPICKER CON SELECCIÓN DE TIEMPO-->
+</head>
+<body class="hold-transition skin-purple sidebar-mini fixed" style="background-color: #ecf0f5;">
+    <div>
+        @if (Request.IsAuthenticated)
+        {
+            <div class="wrapper">
+                @Html.Partial("_Header")
+
+                <aside class="main-sidebar">
+                    <section class="sidebar">
+                       
+                        <div id="_SidebarContadores" class="ocultar">
+                            @Html.Partial("_SidebarContadores")
+                        </div>
+
+                    </section>
+                </aside>
+
+
+                <div class="content-wrapper">
+
+                    <div id="carga" class="cargando ocultar">
+                        <div class="preloader">
+                            <div class="sk-spinner sk-spinner-circle">
+                                <div class="sk-circle1 sk-circle"></div>
+                                <div class="sk-circle2 sk-circle"></div>
+                                <div class="sk-circle3 sk-circle"></div>
+                                <div class="sk-circle4 sk-circle"></div>
+                                <div class="sk-circle5 sk-circle"></div>
+                                <div class="sk-circle6 sk-circle"></div>
+                                <div class="sk-circle7 sk-circle"></div>
+                                <div class="sk-circle8 sk-circle"></div>
+                                <div class="sk-circle9 sk-circle"></div>
+                                <div class="sk-circle10 sk-circle"></div>
+                                <div class="sk-circle11 sk-circle"></div>
+                                <div class="sk-circle12 sk-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="vista-render">
+                        <div id="Div-DiasRestantes" class="ocultar noImprimirMenu" style="height:30px; width:100%; background-color:#ffe6a1">
+                            <p id="P-DiasRestantes" style="padding-top:5px;margin-left:15px;font-size:14px; font-weight:bold"> </p>
+                        </div>
+                        @RenderBody()
+
+                        <div title="Espere..." id="btn-espere" class="btnPosicion2 ocultar"> <i style="padding-top:3px" class="glyphicon glyphicon-hourglass"></i> </div>
+
+                        <div title="Espere..." id="btn-espere1" class="btnPosicion1 ocultar"> <i style="padding-top:3px" class="glyphicon glyphicon-hourglass"></i> </div>
+
+                        <!--Logui Soft Acerca De-->
+                        @Html.Partial("_AcercaDe")
+                    </div>
+
+                    <script>
+                        function MostrarCarga() {
+                            $('#carga').removeClass('ocultar');
+                            $('#vista-render').addClass('div-hidden');
+                        }
+
+                        //oculta simbolo de cargar y muestra contenido
+                        function detectarCarga() {
+                            $('#carga').addClass('ocultar');
+                            $('#vista-render').removeClass('ocultar');
+                            $('#vista-render').removeClass('div-hidden');
+                            $('#vista-usuario').removeClass('ocultar');
+                            $('#vista-usuario').removeClass('div-hidden');
+                        }
+                    </script>
+                </div>
+
+                <footer class="main-footer noImprimirMenu">
+                    <div style="margin-right:55px;" class="pull-right hidden-xs">
+                        <b>Versión</b> 2.8.0
+                    </div>
+                    <strong style="margin-left:10px;">Copyright &copy; 2014-2023 &nbsp;<a target="_blank" href="http://loguisoft.com">LOGUI SOFT</a></strong>&nbsp; All rights
+                    reserved.
+                </footer>
+                <input type="hidden" id="Autentificado" value="1" />
+            </div>
+        }
+        else
+        {
+            <section class="container">
+                @RenderBody()
+            </section>
+        }
+    </div>
+
+    @Scripts.Render("~/Bundles/js")
+    @Scripts.Render("~/Menu/js")
+    @Scripts.Render("~/Datepicker/js")
+    @RenderSection("scripts", required: false)
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="~/jsPDF/jsAutotable/libs/jspdf.debug.js"></script>
+    @*<script src="libs/faker.min.js"></script>*@
+    <script src="~/jsPDF/jsAutotable/libs/jspdf.plugin.autotable.js"></script>
+    <script src="~/Scripts/mascara-moneda.js"></script>
+
+
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+
+        $(document).ready(function () {
+
+            $('.btn-go-top').click(function () {
+                $('body, html').animate({
+                    scrollTop: '0px'
+                }, 500);
+            });
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 1000) {
+                    $('.btn-go-top').fadeIn(150);
+                } else {
+                    $('.btn-go-top').fadeOut(150);
+                }
+            });
+
+            SeleccionarFila();
+        });
+
+        function SeleccionarFila() {
+            console.log('SeleccionarFila()');
+
+            var checkboxes = document.querySelectorAll('tbody tr td input[type=checkbox]');
+            if (checkboxes.length) {
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.addEventListener('change', function (e) {
+
+                        var elemento = e.target;
+                        var fila = elemento.parentElement.parentElement.tagName === 'TR' ? elemento.parentElement.parentElement : elemento.parentElement.parentElement.parentElement;
+                        if (elemento.checked) {
+                            fila.classList.add('tr-seleccionada');
+                        } else {
+                            fila.classList.remove('tr-seleccionada');
+                        }
+                    });
+                });
+
+                var checkbox_thead = document.querySelector('thead tr th input[type=checkbox]');
+                if (checkbox_thead) {
+                    checkbox_thead.addEventListener('change', function (e) {
+                        var seleccionar = e.target.checked;
+                        checkboxes.forEach(function (checkbox) {
+                            var fila = checkbox.parentElement.parentElement.tagName === 'TR' ? checkbox.parentElement.parentElement : checkbox.parentElement.parentElement.parentElement;
+                            if (fila.tagName === 'TR') {
+                                if (seleccionar) {
+                                    fila.classList.add('tr-seleccionada');
+                                } else {
+                                    fila.classList.remove('tr-seleccionada');
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+
+        }
+    </script>
+
+
+    <script>
+        $("#datepicker").datepicker($.datepicker.regional["es"]);
+        $('#datepicker').focus(function () {
+            this.blur();
+        });
+
+        $("#DiasEspera").datepicker($.datepicker.regional["es"]);
+        $('#DiasEspera').focus(function () {
+            this.blur();
+        });
+
+        $("#FechaInicio").datepicker($.datepicker.regional["es"]);
+
+        $("#FechaChequeTercero, #FechaVencimientoChequeTercero, #FechaChequePropio, #FechaVencimientoChequePropio").datepicker($.datepicker.regional["es"]);
+        $('#FechaChequeTercero, #FechaVencimientoChequeTercero, #FechaChequePropio, #FechaVencimientoChequePropio').focus(function () {
+            this.blur();
+        });
+
+        $("#DatePicker1").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker1').focus(function () {
+            this.blur();
+        });
+
+        $("#DatePicker2").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker2').focus(function () {
+            this.blur();
+        });
+
+        $("#DatePicker3").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker3').focus(function () {
+            this.blur();
+        });
+
+        $("#DatePicker4").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker4').focus(function () {
+            this.blur();
+        });
+
+        //Buratto
+        $("#DatePicker5").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker5').focus(function () {
+            this.blur();
+        });
+
+        //Buratto
+        $("#DatePicker6").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker6').focus(function () {
+            this.blur();
+        });
+
+        //Buratto
+        $("#DatePicker7").datepicker($.datepicker.regional["es"]);
+        $('#DatePicker7').focus(function () {
+            this.blur();
+        });
+
+        $('#DateTimePicker, #DateTimePicker2').focus(function () {
+            this.blur();
+        });
+
+
+        $("#FechaVencimiento").datepicker($.datepicker.regional["es"]);
+        $('#FechaVencimiento').focus(function () {
+            this.blur();
+        });
+
+        $("#DatePickerFactura1").datepicker($.datepicker.regional["es"]);
+        $("#DatePickerFactura2").datepicker($.datepicker.regional["es"]);
+
+        $("#DatePicker1SinBlur").datepicker($.datepicker.regional["es"]);
+        $("#DatePicker2SinBlur").datepicker($.datepicker.regional["es"]);
+        $("#DatePicker3SinBlur").datepicker($.datepicker.regional["es"]);
+
+
+        function OcultarSubmit() {
+            $("#btn-submit").addClass("ocultar");
+            $("#btn-espere").removeClass("ocultar");
+            setTimeout("MostrarSubmit();", 3000);
+        }
+        function OcultarSubmit1() {
+            $("#btn-submit").addClass("ocultar");
+            $("#btn-espere1").removeClass("ocultar");
+            setTimeout("MostrarSubmit1();", 3000);
+        }
+
+        function OcultarSubmitSinTiempo() {
+            $("#btn-submit").addClass("ocultar");
+            $("#btn-espere").removeClass("ocultar");
+        }
+
+        function MostrarSubmit() {
+            $("#btn-espere").addClass("ocultar");
+            $("#btn-submit").removeClass("ocultar");
+        }
+        function MostrarSubmit1() {
+            $("#btn-espere").addClass("ocultar");
+            $("#btn-submit1").removeClass("ocultar");
+        }
+
+        $('a[name=btn-submit]').click(function () {
+            MostrarCarga();
+        });
+
+
+    </script>
+
+    <script>
+        function maximo(campo, limite) {
+            if (campo.value.length >= limite) {
+                campo.value = campo.value.substring(0, limite);
+            }
+
+            let caracterMaximo = $('#caracteresMaximos').val();
+            if (caracterMaximo != undefined) {
+                campo.parentElement.querySelector('#caracteresMaximos').innerHTML = `${campo.value.length}/${limite}`;
+            }
+        }
+    </script>
+
+
+    @* Tamaño automatico para el textarea de acuerdo al contenido *@
+    <script src="~/Scripts/autosize.js"></script>
+    <script>
+        autosize(document.querySelectorAll('textarea'));
+    </script>
+
+
+    <!--Reference the SignalR library. -->
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+
+    <!--SignalR script to update the chat page and send messages.-->
+    @* SCRIPT PARA PONER EL NOMBRE DE LA EMPRESA *@
+    <script language="javascript">
+        window.onload = leerCookie();
+        //TENER EN CUENTA QUE LA VALIDACIÓN DE COOKIE ES PARA VISTAS DENTRO DEL SISTEMA UNA VEZ CREADA LA EMPRESA
+        //LAS VISTAS DE REGISTRACIONES NO DEBEN USAR ESTE LAYOUT!!
+        function leerCookie() {
+            var autentificado = $("#Autentificado").val();
+            var listaCookies = document.cookie.split(";");
+
+            if ((listaCookies == "" || listaCookies == undefined || listaCookies == null) && (autentificado == 1 || autentificado == "1")) {
+                location.href = "../../Manage/Index";
+            }
+            else {
+                for (i in listaCookies) {
+                    var busca = listaCookies[i].search("userName");
+                    if (busca > -1) {
+                        micookie = listaCookies[i]
+                    }
+                }
+
+                var nombreEmpresa = "";
+                var diasBloqueo = 0;
+                var prueba = "";
+                var menu = "";
+                var vectorSinAmperson = micookie.split("&");
+                for (i = 0; i < vectorSinAmperson.length; i++) {
+                    var valor = vectorSinAmperson[i];
+                    if (i == 0) {
+                        //CAPTURAR EL NOMBRE DE LA EMPRESA
+                        var igual1 = valor.indexOf("=");
+                        var valor1 = valor.substring(igual1 + 1);
+                        var igual2 = valor1.indexOf("=");
+                        nombreEmpresa = valor1.substring(igual2 + 1);
+                        //nombreEmpresa = valor.substring(18);
+                    }
+                    if (i == 1) {
+                        //CAPTURAR LA CANTIDAD DE DIAS
+                        var igual3 = valor.indexOf("=");
+                        diasBloqueo = valor.substring(igual3 + 1);
+                        //diasBloqueo = valor.substring(14);
+                    }
+                    if (i == 2) {
+                        //CAPTURAR SI ES DE PRUEBA, SI-NO
+                        var igual4 = valor.indexOf("=");
+                        prueba = valor.substring(igual4 + 1);
+                        //prueba = valor.substring(7);
+                    }
+                    if (i == 3) {
+                        //CAPTURAR MENU
+                        var igual5 = valor.indexOf("=");
+                        menu = valor.substring(igual5 + 1);
+                        //puede ser ""
+                    }
+                }
+
+                if (menu == "1") { // FAE VIEJO.
+                    //$('#_SidebarFaE').removeClass('ocultar');
+                    $('#_SidebarContadores').removeClass('ocultar'); // PUEDE VER LO MISMO QUE EL PLUS PERO ESTAN BLOQUEADAS CUANDO ENTRA.
+                }
+                //if (menu == "2") { // FAE PLUS.
+                //    $('#_SidebarFaEPlus').removeClass('ocultar');
+                //}
+
+                $('#nombreEmpresa').append(nombreEmpresa);
+
+                if (diasBloqueo > 0) {
+                    $('#Div-DiasRestantes').removeClass('ocultar');
+                    if (prueba == "SI") {
+                        $('#P-DiasRestantes').append("Tienes " + diasBloqueo + " Días de Prueba");
+                    }
+                    else {
+                        $('#P-DiasRestantes').append("Plan Vencido, tienes " + diasBloqueo + " Días para abonar antes del Bloqueo del Sistema");
+                    }
+                }
+
+            }
+        }
+    </script>
+</body>
+</html>
