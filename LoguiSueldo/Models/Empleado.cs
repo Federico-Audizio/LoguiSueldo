@@ -14,9 +14,9 @@ namespace LoguiSueldo.Models
         public int ArtID { get; set; }
         public int ModalidadID { get; set; }
         public int EmpresaID { get; set; }
-        public string Legajo {  get; set; }
-        public string Nombre { get; set; }
-        public string Domicilio { get; set; }
+        public required string Legajo {  get; set; }
+        public required string Nombre { get; set; }
+        public required string Domicilio { get; set; }
         public int Cuil {  get; set; }
         public DateTime FechaIngreso { get; set; }
         public DateTime FechaLiquidacion { get; set; }

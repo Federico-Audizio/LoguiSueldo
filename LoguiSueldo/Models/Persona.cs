@@ -51,8 +51,8 @@ namespace LoguiSueldo.Models
         public int EmpresaID { get; set; }
 
         public virtual Localidad Localidades { get; set; }
-        public virtual TipoContribuyente TipoContribuyentes { get; set; }
-        public virtual TipoDocumento TipoDocumentos { get; set; }
+        //public virtual TipoContribuyente TipoContribuyentes { get; set; }
+        //public virtual TipoDocumento TipoDocumentos { get; set; }
 
         [NotMapped]
         public int CabeceraPersonaId { get; set; }

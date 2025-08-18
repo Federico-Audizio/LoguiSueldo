@@ -12,7 +12,8 @@ namespace LoguiSueldo.Models
         [Required, Key]
         public int ConvenioID { get; set; }
 
-        public string Descripcion { get; set; }
+        public required string Descripcion { get; set; }
+        [StringLength(150, ErrorMessage = "El {0} debe tener entre como máximo {1} caracteres.")]
 
         public string Codigo { get; set; }
     }
