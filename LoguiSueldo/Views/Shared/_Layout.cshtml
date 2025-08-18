@@ -9,9 +9,9 @@
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    @Styles.Render("~/Menu/css")
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Scripts/jquery-ui/jquery-ui.min-1.0.css")
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.min-1.0.css" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!--DATEPICKER CON SELECCIÓN DE TIEMPO-->
@@ -20,16 +20,16 @@
 </head>
 <body class="hold-transition skin-purple sidebar-mini fixed" style="background-color: #ecf0f5;">
     <div>
-        @if (Request.IsAuthenticated)
+        @if (Context.Request.Path.Value.Contains("Home"))
         {
             <div class="wrapper">
-                @Html.Partial("_Header")
+                @await Html.PartialAsync("_Header")
 
                 <aside class="main-sidebar">
                     <section class="sidebar">
                        
                         <div id="_SidebarContadores" class="ocultar">
-                            @Html.Partial("_SidebarContadores")
+                            @await Html.PartialAsync("_SidebarContadores")
                         </div>
 
                     </section>
@@ -68,7 +68,7 @@
                         <div title="Espere..." id="btn-espere1" class="btnPosicion1 ocultar"> <i style="padding-top:3px" class="glyphicon glyphicon-hourglass"></i> </div>
 
                         <!--Logui Soft Acerca De-->
-                        @Html.Partial("_AcercaDe")
+                        @await Html.PartialAsync("_AcercaDe")
                     </div>
 
                     <script>
@@ -106,10 +106,11 @@
         }
     </div>
 
-    @Scripts.Render("~/Bundles/js")
-    @Scripts.Render("~/Menu/js")
-    @Scripts.Render("~/Datepicker/js")
-    @RenderSection("scripts", required: false)
+    <script src="~/js/site.js"></script>
+    <script src="~/js/menu.js"></script>
+    <script src="~/js/datepicker.js"></script>
+
+    @RenderSection("Scripts", required: false)
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
