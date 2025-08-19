@@ -1,8 +1,7 @@
-﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+﻿
+@if (User.Identity.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-    {
+    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
         @Html.AntiForgeryToken()
 
         <nav id="menu">
@@ -13,11 +12,12 @@
             <ul class="contact">                         
            
                 <li>
-                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Cambiar de Empresa" })
+                    <a asp-controller="Manage" asp-action="Index" title="Cambiar de Empresa">
+                        @User.Identity.Name
+                    </a>
                 </li>
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
             </ul>
         </nav>
-
-    }
+    </form>
 }

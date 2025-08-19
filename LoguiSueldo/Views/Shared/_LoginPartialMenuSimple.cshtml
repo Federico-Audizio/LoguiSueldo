@@ -1,26 +1,30 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+@if (User.Identity != null && User.Identity.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
-    {
-    @Html.AntiForgeryToken()
+    <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+        @Html.AntiForgeryToken()
 
-    <nav id="menu">
-        <header class="major">
-            <h2>Configuración</h2>
-        </header>
-        <div class="linea-seccion-configuracion"></div>
-        <ul class="contact">
-            <li><a href="~/Manage/ChangePassword"> Cambiar Contraseña</a></li>
-            <li>
-                @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Configurar Cuenta" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
-        </ul>
-    </nav>
-
-    }
+        <nav id="menu">
+            <header class="major">
+                <h2>Configuración</h2>
+            </header>
+            <div class="linea-seccion-configuracion"></div>
+            <ul class="contact">
+                <li><a asp-controller="Manage" asp-action="ChangePassword">Cambiar Contraseña</a></li>
+                <li>
+                    <a asp-controller="Manage" asp-action="Index" title="Configurar Cuenta">
+                        @User.Identity.Name
+                    </a>
+                </li>
+                <li>
+                    <button type="submit" class="btn btn-link">Cerrar sesión</button>
+                </li>
+            </ul>
+        </nav>
+    </form>
 }
 else
 {
+    <!-- Opcional: mostrar links de login o registro -->
 }
+
